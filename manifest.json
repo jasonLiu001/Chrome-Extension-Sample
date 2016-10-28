@@ -1,0 +1,40 @@
+{
+  "manifest_version": 2,
+  "name": "Automation Invest",
+  "description": "used for web page automation.",
+  "version": "1.0",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": false
+  },
+  "permissions": [
+    "tabs",
+    "http://*/",
+    "https://*/",
+    "unlimitedStorage"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/"
+      ],
+      "js": [
+        "libs/jquery-2.2.4.min.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "browser_action": {
+    "default_title": "AutomaticWebTool",
+    "default_icon": "icons/icon16.png",
+    "default_popup": "popup.html"
+  }
+}
