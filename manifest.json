@@ -30,7 +30,8 @@
         "https://*/"
       ],
       "js": [
-        "/static/js/test.js"
+        "static/libs/jquery-2.2.4.min.js",
+        "static/libs/knockout-min.js"
       ],
       "run_at": "document_end"
     }
