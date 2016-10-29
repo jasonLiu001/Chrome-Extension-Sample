@@ -1,12 +1,14 @@
-$(function () {
-    /**
-     * 页面上所有按钮
-     * */
-    var btnGroup = {
-        saveSettings: $('#save_settings')
+/**
+ *
+ * @summary option页面视图
+ * */
+function optionPage() {
+    var self = this;
+    //保存设置
+    this.saveSettings = function () {
+        //TODO:添加保存参数代码
     };
+}
 
-    btnGroup.saveSettings.on('click', function () {
-        //TODO:这里编写保存代码
-    });
-});
+var pageView = new optionPage();
+ko.applyBindings(pageView);

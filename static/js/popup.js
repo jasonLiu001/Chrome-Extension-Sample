@@ -1,14 +1,14 @@
 /**
  *
- * @summary 主页面视图
+ * @summary popup操作视图
  * */
-function masterView() {
+function popupPage() {
     var self = this;
     //开始按钮
     self.btnStart = function () {
+        //TODO:这里添加自己代码
         window.close();
-        alert("It's works! Nice! ");
     };
 }
-var mainView = new masterView();
+var mainView = new popupPage();
 ko.applyBindings(mainView);

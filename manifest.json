@@ -12,10 +12,7 @@
     "page": "background.html",
     "persistent": false
   },
-  "options_ui": {
-    "page": "options.html",
-    "chrome_style": true
-  },
+  "options_page": "options.html",
   "permissions": [
     "tabs",
     "http://*/",
