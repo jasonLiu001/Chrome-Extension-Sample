@@ -1,9 +1,10 @@
 /**
  *
- * @summary Ö÷Ò³ÃæÊÓÍ¼
+ * @summary ä¸»é¡µé¢è§†å›¾
  * */
 function masterView() {
     var self = this;
+    //å¼€å§‹æŒ‰é’®
     self.btnStart = function () {
         window.close();
         alert("It's works! Nice! ");
