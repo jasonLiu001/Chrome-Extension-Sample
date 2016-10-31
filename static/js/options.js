@@ -70,7 +70,9 @@ function optionPage(settings) {
     };
     //恢复默认设置
     self.restoreSettings = function () {
-        chrome.storage.sync.set(defaultSettings, function () {
+        //插件对应的后台页面
+        var backgroundPage=chrome.extension.getBackgroundPage();
+        chrome.storage.sync.set(backgroundPage.defaultSettings, function () {
             self.showAlertMessage('恢复默认设置成功！请刷新页面！');
         });
     };
@@ -80,21 +82,10 @@ function optionPage(settings) {
     };
 }
 
-//默认设置
-var defaultSettings = {
-    normalSettings: {
-        maxWinMoney: null,
-        maxLoseMoney: null
-    },
-    autoShutDownSettings: {
-        autoShutdownPC: 'maxWinMoney'
-    }
-};
-
 $(function () {
     //获取设置
     chrome.storage.sync.get(null, function (optionSettings) {
-        var pageView = new optionPage($.extend({}, defaultSettings, optionSettings));
+        var pageView = new optionPage(optionSettings);
         ko.applyBindings(pageView);
     });
 
