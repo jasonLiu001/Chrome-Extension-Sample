@@ -1,5 +1,8 @@
-//默认设置
-var defaultSettings = {
+/**
+ *
+ * @summary 系统默认设置 插件首次加载时的默认设置
+ * */
+window.defaultSettings = {
     normalSettings: {
         maxWinMoney: null,
         maxLoseMoney: null
@@ -8,7 +11,3 @@ var defaultSettings = {
         autoShutdownPC: 'maxWinMoney'
     }
 };
-//启动插件调用
-chrome.storage.sync.get(null, function (optionSettings) {
-    chrome.storage.sync.set($.extend({}, defaultSettings, optionSettings));
-});
