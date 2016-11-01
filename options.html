@@ -35,7 +35,7 @@
 
             <div class="tab-content">
                 <!--常规设置-->
-                <div role="tabpanel" data-bind="with:normalSettings" class="tab-pane active" id="normalSettings">
+                <div role="tabpanel" data-bind="with:userSettings.normalSettings" class="tab-pane active" id="normalSettings">
                     <div class="row" style="height:24px;"></div>
                     <div class="row">
                         <div class="col-md-6">
@@ -62,7 +62,7 @@
                     </div>
                 </div>
                 <!--自动关机设置-->
-                <div role="tabpanel" class="tab-pane" data-bind="with:autoShutDownSettings" id="autoShutDown">
+                <div role="tabpanel" class="tab-pane" data-bind="with:userSettings.autoShutDownSettings" id="autoShutDown">
                     <div class="row" style="height:24px;"></div>
                     <div class="row">
                         <div class="col-md-6">
@@ -107,7 +107,7 @@
         </div>
     </div>
 </div>
-
+<script src="static/js/userSettings.js"></script>
 <script src="static/js/options.js"></script>
 </body>
 </html>

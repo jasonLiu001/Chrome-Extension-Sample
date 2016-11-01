@@ -40,10 +40,11 @@ function optionPage(settings) {
     var self = this;
     //提示条
     self.promptToolBar = new promptToolBar();
-    //常规设置
-    self.normalSettings = new normalSettings(settings.normalSettings);
-    //自动关机设置
-    self.autoShutDownSettings = new autoShutDownSettings(settings.autoShutDownSettings);
+    //用户自定义设置
+    self.userSettings = {
+        normalSettings: new normalSettings(settings.normalSettings),
+        autoShutDownSettings: new autoShutDownSettings(settings.autoShutDownSettings)
+    };
     //显示提示
     self.showAlertMessage = function (text) {
         var promptWindow = self.promptToolBar;
@@ -55,24 +56,14 @@ function optionPage(settings) {
     };
     //保存设置
     self.saveSettings = function () {
-        chrome.storage.sync.set({
-            normalSettings: {
-                maxWinMoney: self.normalSettings.maxWinMoney(),
-                maxLoseMoney: self.normalSettings.maxLoseMoney()
-            },
-            autoShutDownSettings: {
-                autoShutdownPC: self.autoShutDownSettings.autoShutdownPC()
-            }
-        }, function () {
+        window.userSettings.set(self.userSettings, function () {
             //提示保存结果
             self.showAlertMessage('保存成功！');
         });
     };
     //恢复默认设置
     self.restoreSettings = function () {
-        //插件对应的后台页面
-        var backgroundPage=chrome.extension.getBackgroundPage();
-        chrome.storage.sync.set(backgroundPage.defaultSettings, function () {
+        window.userSettings.restore(function () {
             self.showAlertMessage('恢复默认设置成功！请刷新页面！');
         });
     };
@@ -83,10 +74,9 @@ function optionPage(settings) {
 }
 
 $(function () {
-    //获取设置
-    chrome.storage.sync.get(null, function (optionSettings) {
+    //加载用户设置
+    window.userSettings.get(function (optionSettings) {
         var pageView = new optionPage(optionSettings);
         ko.applyBindings(pageView);
     });
-
 });
