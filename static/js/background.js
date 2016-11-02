@@ -24,6 +24,6 @@ function btnStart() {
  * @summary popup页面 结束任务
  * */
 function btnStop() {
-    alert('stop');
+    automationObj.stopInvest();
 }
 

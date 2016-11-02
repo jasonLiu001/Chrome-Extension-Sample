@@ -46,11 +46,11 @@
      * */
     uiAutomator.prototype.implementVerify = function (func, funcName) {
         if (this.platForm === null) {
-            throw new Error('The property platForm is null, should use \'setPlatform\' to define a platform first. ');
+            console.error('The property platForm is null, should use \'setPlatform\' to define a platform first. ');
         }
 
         if (!(func && typeof (func) === 'function')) {
-            throw new Error('The platform must implement the method \'' + funcName + '\'.');
+            console.error('The platform must implement the method \'' + funcName + '\'.');
         }
     };
 
