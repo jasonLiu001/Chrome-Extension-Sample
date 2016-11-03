@@ -4,6 +4,9 @@
  * 虽然当前时间可以直接在方法中获取，但是为了适应测试类的要求，还是需要将当前时间做为参数来传递进去
  * */
 var openTime = ((function () {
+    //默认开奖延迟2分钟
+    var defaultOpenTimeDelaySeconds = 120;
+
     function lotteryTime() {
     }
 
@@ -14,7 +17,7 @@ var openTime = ((function () {
      * @return {Date} 下期的开奖时间
      * */
     lotteryTime.prototype.getNextOpenTime = function (currentTime) {
-        var openTimeList = this.getOpenTimeList(currentTime, 120);
+        var openTimeList = this.getOpenTimeList(currentTime, defaultOpenTimeDelaySeconds);
         var nextOpenTime = null;
         for (var i = 0; i < openTimeList.length; i++) {
             var currentOpenTime = openTimeList[i];
