@@ -1,7 +1,7 @@
 /**
  *
- * @summary ¿ª½±Ê±¼äÀà¿â ÀàµÄ²âÊÔĞèÇó£ºËæ±ã´«ÈëÒ»¸öµ±Ç°Ê±¼ä£¬¾ÍÓ¦¸Ã·µ»ØÏÂÆÚµÄ¿ª½±Ê±¼ä
- * ¿É²âÊÔÀà¿âµÄĞ´·¨ added test
+ * @summary å¼€å¥–æ—¶é—´ç±»åº“ ç±»çš„æµ‹è¯•éœ€æ±‚ï¼šéšä¾¿ä¼ å…¥ä¸€ä¸ªå½“å‰æ—¶é—´ï¼Œå°±åº”è¯¥è¿”å›ä¸‹æœŸçš„å¼€å¥–æ—¶é—´
+ * å¯æµ‹è¯•ç±»åº“çš„å†™æ³• added test
  * */
 var openTime = ((function () {
     function lotteryTime(options) {
@@ -11,21 +11,21 @@ var openTime = ((function () {
             throw  new SyntaxError(message);
         }
         this.currentTime = options.currentTime;
-        //Ä¬ÈÏÑÓ³Ù¿ª½±Ê±¼ä
+        //é»˜è®¤å»¶è¿Ÿå¼€å¥–æ—¶é—´
         this.openTimeDelaySeconds = options.openTimeDelaySeconds;
     }
 
     /**
      *
-     * @summary ÏÂÆÚµÄ¿ª½±Ê±¼ä
-     * @return {Date} ÏÂÆÚµÄ¿ª½±Ê±¼ä
+     * @summary ä¸‹æœŸçš„å¼€å¥–æ—¶é—´
+     * @return {Date} ä¸‹æœŸçš„å¼€å¥–æ—¶é—´
      * */
     lotteryTime.prototype.getNextOpenTime = function () {
         var openTimeList = this.getOpenTimeList(this.openTimeDelaySeconds);
         var nextOpenTime = null;
         for (var i = 0; i < openTimeList.length; i++) {
             var currentOpenTime = openTimeList[i];
-            if (currentOpenTime > this.currentTime) {//×î½üµÄ¿ª½±Ê±¼ä
+            if (currentOpenTime > this.currentTime) {//æœ€è¿‘çš„å¼€å¥–æ—¶é—´
                 nextOpenTime = currentOpenTime;
                 break;
             }
@@ -35,28 +35,28 @@ var openTime = ((function () {
 
     /**
      *
-     * @summary ¿ª½±Ê±¼äÁĞ±í
-     * @param {Number} delaySeconds ÉèÖÃÑÓÊ±Ê±¼äµ¥Î»ÎªÃî
-     * @return {Array} Ê±¼äÊı×é
+     * @summary å¼€å¥–æ—¶é—´åˆ—è¡¨
+     * @param {Number} delaySeconds è®¾ç½®å»¶æ—¶æ—¶é—´å•ä½ä¸ºå¦™
+     * @return {Array} æ—¶é—´æ•°ç»„
      * */
     lotteryTime.prototype.getOpenTimeList = function (delaySeconds) {
-        //µ±ÌìµÄ01:55µ½10:00
+        //å½“å¤©çš„01:55åˆ°10:00
         var year = this.currentTime.getFullYear();
-        var month = this.currentTime.getMonth();
+        var month = this.currentTime.getMonth() - 1;//monthå–å€¼ 0-11
         var day = this.currentTime.getDate();
-        //µ±ÌìµÄ10:00
+        //å½“å¤©çš„10:00
         var secondTime = new Date(year, month, day, 10, 00, 00);
-        //µ±ÌìµÄ22:00
+        //å½“å¤©çš„22:00
         var thirdTime = new Date(year, month, day, 22, 00, 00);
 
-        //10:00-22:00£¬¹²72ÆÚ
+        //10:00-22:00ï¼Œå…±72æœŸ
         var openTimeList = [];
         openTimeList.push(new Date(secondTime.getTime()));
         for (var i = 1; i <= 72; i++) {
             openTimeList.push(new Date(secondTime.getTime() + i * 10 * 60 * 1000 + delaySeconds))
         }
 
-        // 22:00-01:55£¬¹²48ÆÚ ÒÆ³ı2µãµÄÄÇÆÚ£¬2µãÃ»ÓĞ
+        // 22:00-01:55ï¼Œå…±48æœŸ ç§»é™¤2ç‚¹çš„é‚£æœŸï¼Œ2ç‚¹æ²¡æœ‰
         for (var i = 1; i < 48; i++) {
             openTimeList.push(new Date(thirdTime.getTime() + i * 5 * 60 * 1000 + delaySeconds))
         }
