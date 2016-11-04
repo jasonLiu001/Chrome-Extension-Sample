@@ -1,27 +1,32 @@
 /**
  *
  * @summary 开奖时间类库 类的测试需求：随便传入一个当前时间，就应该返回下期的开奖时间
- * 虽然当前时间可以直接在方法中获取，但是为了适应测试类的要求，还是需要将当前时间做为参数来传递进去
+ * 可测试类库的写法 added test
  * */
 var openTime = ((function () {
     //默认开奖延迟2分钟
     var defaultOpenTimeDelaySeconds = 120;
 
-    function lotteryTime() {
+    function lotteryTime(options) {
+        if (options === undefined) {
+            var message = 'lotteryTime constructor have 1 argument.';
+            console.error(message);
+            throw  new SyntaxError(message);
+        }
+        this.currentTime = options.currentTime;
     }
 
     /**
      *
      * @summary 下期的开奖时间
-     * @param {Date} currentTime 当前时间
      * @return {Date} 下期的开奖时间
      * */
-    lotteryTime.prototype.getNextOpenTime = function (currentTime) {
-        var openTimeList = this.getOpenTimeList(currentTime, defaultOpenTimeDelaySeconds);
+    lotteryTime.prototype.getNextOpenTime = function () {
+        var openTimeList = this.getOpenTimeList(defaultOpenTimeDelaySeconds);
         var nextOpenTime = null;
         for (var i = 0; i < openTimeList.length; i++) {
             var currentOpenTime = openTimeList[i];
-            if (currentOpenTime > currentTime) {//最近的开奖时间
+            if (currentOpenTime > this.currentTime) {//最近的开奖时间
                 nextOpenTime = currentOpenTime;
                 break;
             }
@@ -32,15 +37,14 @@ var openTime = ((function () {
     /**
      *
      * @summary 开奖时间列表
-     * @param {Date} currentTime 当前系统时间
      * @param {Number} delaySeconds 设置延时时间单位为妙
      * @return {Array} 时间数组
      * */
-    lotteryTime.prototype.getOpenTimeList = function (currentTime, delaySeconds) {
+    lotteryTime.prototype.getOpenTimeList = function (delaySeconds) {
         //当天的01:55到10:00
-        var year = currentTime.getFullYear();
-        var month = currentTime.getMonth();
-        var day = currentTime.getDay();
+        var year = this.currentTime.getFullYear();
+        var month = this.currentTime.getMonth();
+        var day = this.currentTime.getDay();
         //当天的10:00
         var secondTime = new Date(year, month, day, 10, 00, 00);
         //当天的22:00
@@ -61,5 +65,5 @@ var openTime = ((function () {
         return openTimeList;
     };
 
-    return new lotteryTime();
+    return lotteryTime;
 })());
