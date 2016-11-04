@@ -4,9 +4,6 @@
  * 可测试类库的写法 added test
  * */
 var openTime = ((function () {
-    //默认开奖延迟2分钟
-    var defaultOpenTimeDelaySeconds = 120;
-
     function lotteryTime(options) {
         if (options === undefined) {
             var message = 'lotteryTime constructor have 1 argument.';
@@ -14,6 +11,8 @@ var openTime = ((function () {
             throw  new SyntaxError(message);
         }
         this.currentTime = options.currentTime;
+        //默认延迟开奖时间
+        this.openTimeDelaySeconds = options.openTimeDelaySeconds;
     }
 
     /**
@@ -22,7 +21,7 @@ var openTime = ((function () {
      * @return {Date} 下期的开奖时间
      * */
     lotteryTime.prototype.getNextOpenTime = function () {
-        var openTimeList = this.getOpenTimeList(defaultOpenTimeDelaySeconds);
+        var openTimeList = this.getOpenTimeList(this.openTimeDelaySeconds);
         var nextOpenTime = null;
         for (var i = 0; i < openTimeList.length; i++) {
             var currentOpenTime = openTimeList[i];
@@ -44,7 +43,7 @@ var openTime = ((function () {
         //当天的01:55到10:00
         var year = this.currentTime.getFullYear();
         var month = this.currentTime.getMonth();
-        var day = this.currentTime.getDay();
+        var day = this.currentTime.getDate();
         //当天的10:00
         var secondTime = new Date(year, month, day, 10, 00, 00);
         //当天的22:00
@@ -52,7 +51,7 @@ var openTime = ((function () {
 
         //10:00-22:00，共72期
         var openTimeList = [];
-        openTimeList.push(secondTime.getTime());
+        openTimeList.push(new Date(secondTime.getTime()));
         for (var i = 1; i <= 72; i++) {
             openTimeList.push(new Date(secondTime.getTime() + i * 10 * 60 * 1000 + delaySeconds))
         }
@@ -65,5 +64,6 @@ var openTime = ((function () {
         return openTimeList;
     };
 
+    module.exports = lotteryTime;
     return lotteryTime;
 })());
