@@ -1,5 +1,10 @@
 /**
  *
+ * @summary 下期的投注时间
+ * */
+var nextPeriodInvestTime = null;
+/**
+ *
  * @summary 开奖时间类库 类的测试需求：随便传入一个当前时间，就应该返回下期的开奖时间
  * 可测试类库的写法 added test
  * */
@@ -13,7 +18,36 @@ var openTime = ((function () {
         this.currentTime = options.currentTime;
         //默认延迟开奖时间
         this.openTimeDelaySeconds = options.openTimeDelaySeconds;
+        //**********design for test
+        if (options.nextPeriodInvestTime != null && options.nextPeriodInvestTime != undefined) {
+            this.nextPeriodInvestTime = options.nextPeriodInvestTime;
+            nextPeriodInvestTime = options.nextPeriodInvestTime;
+        }
+        //**********design for test
     }
+
+    /**
+     *
+     * @summary 是否允许执行投注
+     * @return {Boolean} true:允许投注 false:不允许投注
+     * */
+    lotteryTime.prototype.enableExecInvest = function () {
+        if (nextPeriodInvestTime === null) {
+            nextPeriodInvestTime = this.getNextOpenTime();
+            return true;
+        }
+        var nextOpenTime = this.getNextOpenTime();
+        //未到开奖时间
+        if (nextOpenTime.getTime() == nextPeriodInvestTime.getTime()) {
+            return false;
+        } else {
+            nextPeriodInvestTime = nextOpenTime;//更新开奖时间
+            //***design for test expose it externally.****
+            this.nextPeriodInvestTime = nextOpenTime;
+            //***design for test expose it externally.****
+            return true;
+        }
+    };
 
     /**
      *
@@ -81,6 +115,7 @@ var openTime = ((function () {
         return openTimeList;
     };
 
+    //design for test
     module.exports = lotteryTime;
     return lotteryTime;
 })());
