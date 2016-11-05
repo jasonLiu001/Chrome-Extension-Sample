@@ -1,11 +1,12 @@
 /**
  *
- * @summary ÏµÍ³Ä¬ÈÏÉèÖÃ ²å¼şÊ×´Î¼ÓÔØÊ±µÄÄ¬ÈÏÉèÖÃ
+ * @summary æ’ä»¶ç¬¬ä¸€æ¬¡åŠ è½½æ—¶çš„é»˜è®¤è®¾ç½®
  * */
 window.defaultSettings = {
     normalSettings: {
         maxWinMoney: null,
-        maxLoseMoney: null
+        maxLoseMoney: null,
+        prizeMoney: null
     },
     autoShutDownSettings: {
         autoShutdownPC: 'maxWinMoney'

@@ -3,32 +3,33 @@
 
     /**
      *
-     * @summary »Ö¸´Ä¬ÈÏÉèÖÃ
+     * @summary æ¢å¤é»˜è®¤è®¾ç½®
      * */
     userSettings.restore = function (callback) {
-        //²å¼ş¶ÔÓ¦µÄºóÌ¨Ò³Ãæ
+        //æ’ä»¶å¯¹åº”çš„åå°é¡µé¢
         var backgroundPage = chrome.extension.getBackgroundPage();
         chrome.storage.sync.set(backgroundPage.defaultSettings, callback);
     };
 
     /**
      *
-     * @summary »ñÈ¡ÓÃ»§Éè¶¨
+     * @summary è·å–ç”¨æˆ·è®¾å®š
      * */
     userSettings.get = function (callback) {
-        //»ñÈ¡ÓÃ»§ÉèÖÃ
+        //è·å–ç”¨æˆ·è®¾ç½®
         chrome.storage.sync.get(null, callback);
     };
 
     /**
      *
-     * @summary ±£´æÓÃ»§×Ô¶¨ÒåÉèÖÃ
+     * @summary ä¿å­˜ç”¨æˆ·è‡ªå®šä¹‰è®¾ç½®
      * */
     userSettings.set = function (userSettings, callback) {
         chrome.storage.sync.set({
             normalSettings: {
                 maxWinMoney: userSettings.normalSettings.maxWinMoney(),
-                maxLoseMoney: userSettings.normalSettings.maxLoseMoney()
+                maxLoseMoney: userSettings.normalSettings.maxLoseMoney(),
+                prizeMoney: userSettings.normalSettings.prizeMoney()
             },
             autoShutDownSettings: {
                 autoShutdownPC: userSettings.autoShutDownSettings.autoShutdownPC()

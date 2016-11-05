@@ -8,6 +8,8 @@ function normalSettings(settings) {
     self.maxWinMoney = ko.observable(settings.maxWinMoney);
     //最大亏损
     self.maxLoseMoney = ko.observable(settings.maxLoseMoney);
+    //奖金模式
+    self.prizeMoney = ko.observable(settings.prizeMoney);
 }
 
 /**
