@@ -42,7 +42,7 @@ var openTime = ((function () {
     lotteryTime.prototype.getOpenTimeList = function (delaySeconds) {
         //当天的01:55到10:00
         var year = this.currentTime.getFullYear();
-        var month = this.currentTime.getMonth() - 1;//month取值 0-11
+        var month = this.currentTime.getMonth();//month取值 0-11
         var day = this.currentTime.getDate();
         //当天的10:00
         var secondTime = new Date(year, month, day, 10, 00, 00);
