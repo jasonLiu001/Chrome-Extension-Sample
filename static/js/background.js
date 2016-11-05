@@ -8,7 +8,7 @@ chrome.storage.sync.get(null, function (optionSettings) {
 
 var automationObj = window.uiAutomator;
 //step1:设置平台为经纬平台
-automationObj.setPlatform(platformList.jingwei);
+automationObj.setPlatform(enumPlatformList.jingwei);
 
 /**
  *

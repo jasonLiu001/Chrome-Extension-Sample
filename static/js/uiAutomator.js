@@ -13,7 +13,7 @@
      * */
     uiAutomator.prototype.setPlatform = function (platformName) {
         switch (platformName) {
-            case window.platformList.jingwei://经纬平台
+            case window.enumPlatformList.jingwei://经纬平台
                 this.platForm = window.jingweiplatform;
                 break;
             default :
