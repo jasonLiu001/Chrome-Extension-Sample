@@ -9,6 +9,11 @@ var profit = ((function () {
     function profitMoney(options) {
         //用户设置
         this.userSettings = options.userSettings;
+        //Testing requirement.
+        if (options.currentAccountBalance != undefined) {
+            this.currentAccountBalance = options.currentAccountBalance;
+            currentAccountBalance = options.currentAccountBalance;
+        }
     }
 
     /**
@@ -22,16 +27,16 @@ var profit = ((function () {
         var money = 0;
         var prizeMoney = this.userSettings.normalSettings.prizeMoney;//最大奖金
         var playMode = this.userSettings.normalSettings.playMode;//玩法模式
-        var investMoney = this.investMoney(investNumberString, playModeEnumItem);
+        var investMoney = this.getInvestMoney(investNumberString, playModeEnumItem);
         switch (playMode) {
             case playModeEnumItem.yuan://元模式
                 money = prizeMoney - investMoney;
                 break;
             case playModeEnumItem.jiao://角模式
-                money = (prizeMoney / 10) - investMoney;
+                money = (((prizeMoney / 10) * 100) - investMoney * 100) / 100;
                 break;
             case playModeEnumItem.feng://分模式
-                money = (prizeMoney / 100) - investMoney;
+                money = (((prizeMoney / 100) * 100) - (investMoney * 100)) / 100;
                 break;
         }
         return money;
@@ -46,7 +51,16 @@ var profit = ((function () {
      * */
     profitMoney.prototype.getInvestMoney = function (investNumberString, playModeEnumItem) {
         var playMode = this.userSettings.normalSettings.playMode;//玩法模式
-        var investNumberCount = investNumberString.trim().split(/[ ,]/);
+        var investNumberArray = investNumberString.trim().split(/[ ,]/);
+        var filterNumberArray = [];
+        //过滤掉多余空白项
+        for (var i = 0; i < investNumberArray.length; i++) {
+            var item = investNumberArray[i];
+            if (item != '') {
+                filterNumberArray.push(item);
+            }
+        }
+        var investNumberCount = filterNumberArray.length;
         var investMoney = investNumberCount * 2;
         switch (playMode) {
             case playModeEnumItem.yuan://元模式
@@ -74,18 +88,22 @@ var profit = ((function () {
             currentAccountBalance = this.userSettings.normalSettings.accountBalance;
         }
         //当前投注金额
-        var investMoney = this.investMoney(investNumberString, playModeEnumItem);
+        var investMoney = this.getInvestMoney(investNumberString, playModeEnumItem);
         var playMode = this.userSettings.normalSettings.playMode;//玩法模式
         switch (playMode) {
             case playModeEnumItem.yuan://元模式
                 currentAccountBalance = currentAccountBalance - investMoney;
                 break;
             case playModeEnumItem.jiao://角模式
-                currentAccountBalance = (currentAccountBalance / 10) - investMoney;
+                currentAccountBalance = (((currentAccountBalance / 10) * 100) - (investMoney * 100)) / 100;
                 break;
             case playModeEnumItem.feng://分模式
-                currentAccountBalance = (currentAccountBalance / 100) - investMoney;
+                currentAccountBalance = (((currentAccountBalance / 100) * 100) - (investMoney * 100)) / 100;
                 break;
+        }
+        //Testing requirement.
+        if (this.currentAccountBalance != undefined) {
+            this.currentAccountBalance = currentAccountBalance;
         }
     };
 
@@ -112,6 +130,7 @@ var profit = ((function () {
                 totalWinMoney = totalWinMoney / 100;
                 break;
         }
+        return totalWinMoney;
     };
 
     //Testing requirement.

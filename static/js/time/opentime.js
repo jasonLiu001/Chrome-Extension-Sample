@@ -39,7 +39,9 @@ var openTime = ((function () {
         } else {
             nextPeriodInvestTime = nextOpenTime;//更新开奖时间
             //Testing requirement.
-            this.nextPeriodInvestTime = nextOpenTime;
+            if(this.nextPeriodInvestTime!=undefined){
+                this.nextPeriodInvestTime = nextOpenTime;
+            }
             return true;
         }
     };
