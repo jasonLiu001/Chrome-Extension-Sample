@@ -21,22 +21,35 @@ var profit = ((function () {
      * @summary 单次投注中奖后的盈利金额  奖金-本次投注金额=单次盈利金额
      * @param {String} investNumberString 投注的号码字符
      * @param {Object} playModeEnumItem 玩法模式枚举值
-     * @return {Number} 盈利金额
+     * @param {Boolean} isWinPrize 是否中奖
+     * @return {Number} 盈利金额 如果未中奖，盈利金额则为负数
      * */
-    profitMoney.prototype.getWinMoney = function (investNumberString, playModeEnumItem) {
+    profitMoney.prototype.getWinMoney = function (investNumberString, playModeEnumItem, isWinPrize) {
         var money = 0;
         var prizeMoney = this.userSettings.normalSettings.prizeMoney;//最大奖金
         var playMode = this.userSettings.normalSettings.playMode;//玩法模式
         var investMoney = this.getInvestMoney(investNumberString, playModeEnumItem);
         switch (playMode) {
             case playModeEnumItem.yuan://元模式
-                money = prizeMoney - investMoney;
+                if (isWinPrize) {
+                    money = prizeMoney - investMoney;
+                } else {
+                    money = -investMoney;
+                }
                 break;
             case playModeEnumItem.jiao://角模式
-                money = (((prizeMoney / 10) * 100) - investMoney * 100) / 100;
+                if (isWinPrize) {
+                    money = (((prizeMoney / 10) * 100) - investMoney * 100) / 100;
+                } else {
+                    money = -(investMoney / 10);
+                }
                 break;
             case playModeEnumItem.feng://分模式
-                money = (((prizeMoney / 100) * 100) - (investMoney * 100)) / 100;
+                if (isWinPrize) {
+                    money = (((prizeMoney / 100) * 100) - (investMoney * 100)) / 100;
+                } else {
+                    money = -(investMoney / 100);
+                }
                 break;
         }
         return money;

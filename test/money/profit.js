@@ -27,14 +27,14 @@ describe('getWinMoney function test.', function () {
         var profit = new profitModule({
             userSettings: userSettings
         });
-        expect(profit.getWinMoney('123 333 555 444', enumPlayMode)).to.be.equal(1922);
+        expect(profit.getWinMoney('123 333 555 444', enumPlayMode, true)).to.be.equal(1922);
     });
     it('should win 1922=>2', function () {
         userSettings.normalSettings.prizeMoney = 1930;
         var profit = new profitModule({
             userSettings: userSettings
         });
-        expect(profit.getWinMoney('123 , 333 , 555 , 444', enumPlayMode)).to.be.equal(1922);
+        expect(profit.getWinMoney('123 , 333 , 555 , 444', enumPlayMode, false)).to.be.equal(-8);
     });
 });
 
