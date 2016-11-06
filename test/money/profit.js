@@ -53,6 +53,7 @@ describe('setAccountBalanceAfterInvest function test.', function () {
 describe('getTotalWinMoney function test.', function () {
     it('should win 70', function () {
         userSettings.normalSettings.prizeMoney = 1930;
+        userSettings.normalSettings.accountBalance = 1930;//账户初始余额
         var profit = new profitModule({
             userSettings: userSettings,
             currentAccountBalance: 2000
@@ -68,5 +69,19 @@ describe('getInvestMoney function test.', function () {
             userSettings: userSettings
         });
         expect(profit.getInvestMoney('123 , 333 , 555 , 444', enumPlayMode)).to.be.equal(8);
+    });
+});
+//是否可以执行投注
+describe('enableExecInvest function test.', function () {
+    it('enableExecInvest', function () {
+        userSettings.normalSettings.prizeMoney = 1930;
+        userSettings.normalSettings.maxWinMoney = 10;
+        userSettings.normalSettings.maxLoseMoney = 10;
+        userSettings.normalSettings.accountBalance = 0;
+        var profit = new profitModule({
+            userSettings: userSettings,
+            currentAccountBalance: 10
+        });
+        expect(profit.enableExecInvest(enumPlayMode)).to.be.equal(false);
     });
 });

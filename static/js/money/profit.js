@@ -18,6 +18,22 @@ var profit = ((function () {
 
     /**
      *
+     * @summary 是否可以执行投注
+     * @param {Object} playModeEnumItem 玩法模式枚举值
+     * @return {Boolean} 是否可以执行投注
+     * */
+    profitMoney.prototype.enableExecInvest = function (playModeEnumItem) {
+        var maxWinMoney = this.userSettings.normalSettings.maxWinMoney;
+        var maxLoseMoney = this.userSettings.normalSettings.maxLoseMoney;
+        var totalWinMoney = this.getTotalWinMoney(playModeEnumItem);
+        if (Math.abs(totalWinMoney) >= maxWinMoney || Math.abs(totalWinMoney) >= maxLoseMoney) {
+            return false;
+        }
+        return true;
+    };
+
+    /**
+     *
      * @summary 单次投注中奖后的盈利金额  奖金-本次投注金额=单次盈利金额
      * @param {String} investNumberString 投注的号码字符
      * @param {Object} playModeEnumItem 玩法模式枚举值
@@ -124,7 +140,7 @@ var profit = ((function () {
      *
      * @summary 获取总盈利金额
      * @param {Object} playModeEnumItem 玩法模式枚举值
-     * @return {Number} 总盈利金额
+     * @return {Number} 总盈利金额 正值或者负值
      * */
     profitMoney.prototype.getTotalWinMoney = function (playModeEnumItem) {
         if (currentAccountBalance == null) {
