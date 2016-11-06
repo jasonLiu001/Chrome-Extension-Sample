@@ -1,8 +1,5 @@
-/**
- *
- * @summary 下期的投注时间
- * */
-var nextPeriodInvestTime = null;
+//Testing requirement.
+var nextPeriodInvestTime = require('../global/globalVar.js').nextPeriodInvestTime;
 /**
  *
  * @summary 开奖时间类库 类的测试需求：随便传入一个当前时间，就应该返回下期的开奖时间
@@ -18,12 +15,11 @@ var openTime = ((function () {
         this.currentTime = options.currentTime;
         //默认延迟开奖时间
         this.openTimeDelaySeconds = options.openTimeDelaySeconds;
-        //**********design for test
+        //Testing requirement.
         if (options.nextPeriodInvestTime != null && options.nextPeriodInvestTime != undefined) {
             this.nextPeriodInvestTime = options.nextPeriodInvestTime;
             nextPeriodInvestTime = options.nextPeriodInvestTime;
         }
-        //**********design for test
     }
 
     /**
@@ -42,9 +38,8 @@ var openTime = ((function () {
             return false;
         } else {
             nextPeriodInvestTime = nextOpenTime;//更新开奖时间
-            //***design for test expose it externally.****
+            //Testing requirement.
             this.nextPeriodInvestTime = nextOpenTime;
-            //***design for test expose it externally.****
             return true;
         }
     };
@@ -115,7 +110,8 @@ var openTime = ((function () {
         return openTimeList;
     };
 
-    //design for test
+    //Testing requirement.
     module.exports = lotteryTime;
+
     return lotteryTime;
 })());

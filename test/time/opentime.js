@@ -10,7 +10,7 @@ describe('getNextOpenTime function test.', function () {
         });
         expect(openTime.getNextOpenTime().toLocaleString()).to.be.equal(new Date(2016, 10, 4, 14, 40, openTimeDelaySeconds).toLocaleString());
     });
-    //¿çÌì²âÊÔ
+    //è·¨å¤©æµ‹è¯•
     it('2016.11.04 23:59:00 => 2016.11.05 00:00:00', function () {
         var openTime = new openTimeModule({
             currentTime: new Date(2016, 10, 4, 23, 59, 00),
@@ -25,7 +25,7 @@ describe('getNextOpenTime function test.', function () {
         });
         expect(openTime.getNextOpenTime().toLocaleString()).to.be.equal(new Date(2016, 10, 4, 01, 55, openTimeDelaySeconds).toLocaleString());
     });
-    //ÁÙ½ç²âÊÔ
+    //ä¸´ç•Œæµ‹è¯•
     it('2016.11.04 01:55:00 => 2016.11.04 10:00:00', function () {
         var openTime = new openTimeModule({
             currentTime: new Date(2016, 10, 4, 01, 55, openTimeDelaySeconds),
@@ -33,7 +33,7 @@ describe('getNextOpenTime function test.', function () {
         });
         expect(openTime.getNextOpenTime().toLocaleString()).to.be.equal(new Date(2016, 10, 4, 10, 00, openTimeDelaySeconds).toLocaleString());
     });
-    //ÁÙ½ç²âÊÔ
+    //ä¸´ç•Œæµ‹è¯•
     it('2016.11.04 01:56:00 => 2016.11.04 10:00:00', function () {
         var openTime = new openTimeModule({
             currentTime: new Date(2016, 10, 4, 01, 56, openTimeDelaySeconds),
@@ -41,7 +41,7 @@ describe('getNextOpenTime function test.', function () {
         });
         expect(openTime.getNextOpenTime().toLocaleString()).to.be.equal(new Date(2016, 10, 4, 10, 00, openTimeDelaySeconds).toLocaleString());
     });
-    //ÁÙ½ç²âÊÔ
+    //ä¸´ç•Œæµ‹è¯•
     it('2016.11.04 01:59:00 => 2016.11.04 10:00:00', function () {
         var openTime = new openTimeModule({
             currentTime: new Date(2016, 10, 4, 01, 59, 00),
@@ -49,7 +49,7 @@ describe('getNextOpenTime function test.', function () {
         });
         expect(openTime.getNextOpenTime().toLocaleString()).to.be.equal(new Date(2016, 10, 4, 10, 00, openTimeDelaySeconds).toLocaleString());
     });
-    //ÁÙ½ç²âÊÔ
+    //ä¸´ç•Œæµ‹è¯•
     it('2016.11.04 00:00:00 => 2016.11.04 00:05:00', function () {
         var openTime = new openTimeModule({
             currentTime: new Date(2016, 10, 4, 00, 00, openTimeDelaySeconds),
@@ -91,8 +91,7 @@ describe('enableExecInvest function test', function () {
         };
         var openTime = new openTimeModule(options);
         expect(openTime.enableExecInvest()).to.be.equal(true);
-        //¸üÐÂÏÂÆÚÊ±¼ä
+        //æ›´æ–°ä¸‹æœŸæ—¶é—´
         expect(openTime.nextPeriodInvestTime.toLocaleString()).to.be.equal(new Date(2016, 10, 4, 14, 20, openTimeDelaySeconds).toLocaleString());
     });
-})
-;
+});
