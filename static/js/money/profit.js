@@ -1,4 +1,5 @@
-
+//Testing requirement.
+var currentAccountBalance = require('../global/globalVar.js').currentAccountBalance;
 
 /**
  *
@@ -17,7 +18,7 @@ var profit = ((function () {
      * @param {Object} playModeEnumItem 玩法模式枚举值
      * @return {Number} 盈利金额
      * */
-    profitMoney.prototype.winMoney = function (investNumberString, playModeEnumItem) {
+    profitMoney.prototype.getWinMoney = function (investNumberString, playModeEnumItem) {
         var money = 0;
         var prizeMoney = this.userSettings.normalSettings.prizeMoney;//最大奖金
         var playMode = this.userSettings.normalSettings.playMode;//玩法模式
@@ -43,7 +44,7 @@ var profit = ((function () {
      * @param {Object} playModeEnumItem 玩法模式枚举值
      * @return {Number} 本局投注金额
      * */
-    profitMoney.prototype.investMoney = function (investNumberString, playModeEnumItem) {
+    profitMoney.prototype.getInvestMoney = function (investNumberString, playModeEnumItem) {
         var playMode = this.userSettings.normalSettings.playMode;//玩法模式
         var investNumberCount = investNumberString.trim().split(/[ ,]/);
         var investMoney = investNumberCount * 2;
@@ -63,13 +64,57 @@ var profit = ((function () {
 
     /**
      *
-     * @summary 当前账户余额
+     * @summary 获取投注之后的当前账户余额
+     * @param {String} investNumberString 投注的号码字符
+     * @param {Object} playModeEnumItem 玩法模式枚举值
+     * @return {Number} 当前账户余额
      * */
-    profitMoney.prototype.currentAccountBalance = function () {
-
+    profitMoney.prototype.setAccountBalanceAfterInvest = function (investNumberString, playModeEnumItem) {
+        if (currentAccountBalance == null) {
+            currentAccountBalance = this.userSettings.normalSettings.accountBalance;
+        }
+        //当前投注金额
+        var investMoney = this.investMoney(investNumberString, playModeEnumItem);
+        var playMode = this.userSettings.normalSettings.playMode;//玩法模式
+        switch (playMode) {
+            case playModeEnumItem.yuan://元模式
+                currentAccountBalance = currentAccountBalance - investMoney;
+                break;
+            case playModeEnumItem.jiao://角模式
+                currentAccountBalance = (currentAccountBalance / 10) - investMoney;
+                break;
+            case playModeEnumItem.feng://分模式
+                currentAccountBalance = (currentAccountBalance / 100) - investMoney;
+                break;
+        }
     };
 
-    //design for test
+    /**
+     *
+     * @summary 获取总盈利金额
+     * @param {Object} playModeEnumItem 玩法模式枚举值
+     * @return {Number} 总盈利金额
+     * */
+    profitMoney.prototype.getTotalWinMoney = function (playModeEnumItem) {
+        if (currentAccountBalance == null) {
+            currentAccountBalance = this.userSettings.normalSettings.accountBalance;
+        }
+        var totalWinMoney = currentAccountBalance - this.userSettings.normalSettings.accountBalance;
+        var playMode = this.userSettings.normalSettings.playMode;//玩法模式
+        switch (playMode) {
+            case playModeEnumItem.yuan://元模式
+                totalWinMoney = totalWinMoney;
+                break;
+            case playModeEnumItem.jiao://角模式
+                totalWinMoney = totalWinMoney / 10;
+                break;
+            case playModeEnumItem.feng://分模式
+                totalWinMoney = totalWinMoney / 100;
+                break;
+        }
+    };
+
+    //Testing requirement.
     module.exports = profitMoney;
     return profitMoney;
 })());
