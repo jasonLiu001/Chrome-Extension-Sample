@@ -7,7 +7,8 @@ window.defaultSettings = {
         maxWinMoney: null,
         maxLoseMoney: null,
         prizeMoney: null,
-        playMode: 'feng'
+        playMode: 'feng',
+        accountBalance: null
     },
     autoShutDownSettings: {
         autoShutdownPC: 'maxWinMoney'

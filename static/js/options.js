@@ -12,6 +12,8 @@ function normalSettings(settings) {
     self.prizeMoney = ko.observable(settings.prizeMoney);
     //玩法模式
     self.playMode = ko.observable(settings.playMode);
+    //账户余额
+    self.accountBalance = ko.observable(settings.accountBalance);
 }
 
 /**

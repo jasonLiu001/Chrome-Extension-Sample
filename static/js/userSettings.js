@@ -30,7 +30,8 @@
                 maxWinMoney: userSettings.normalSettings.maxWinMoney(),
                 maxLoseMoney: userSettings.normalSettings.maxLoseMoney(),
                 prizeMoney: userSettings.normalSettings.prizeMoney(),
-                playMode: userSettings.normalSettings.playMode()
+                playMode: userSettings.normalSettings.playMode(),
+                accountBalance: userSettings.normalSettings.accountBalance()
             },
             autoShutDownSettings: {
                 autoShutdownPC: userSettings.autoShutDownSettings.autoShutdownPC()
