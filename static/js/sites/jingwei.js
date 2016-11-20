@@ -1,3 +1,8 @@
+;
+//Testing requirement.
+var lastInvestNumberString = require('../global/globalVar.js').lastInvestNumberString;
+//Testing requirement.
+var lastInvestPeriodNumber = require('../global/globalVar.js').lastInvestPeriodNumber;
 /**
  *
  * @summary 经纬平台
@@ -12,10 +17,34 @@
 
     /**
      *
+     * @summary 获取上期开奖期号
+     * @return {String} 期号 如：20161120-032
+     * */
+    jingweiplatform.prototype.getLastPeriodNumberString = function () {
+    };
+
+    /**
+     *
+     * @summary 获取上期开奖号码
+     * @return {String} 上期开奖号码 如：58903
+     * */
+    jingweiplatform.prototype.getLastPrizeNumberString = function () {
+    };
+
+    /**
+     *
+     * @summary 获取当前投注期号
+     * @return {String} 期号 如：20161120-032
+     * */
+    jingweiplatform.prototype.getCurrentPeriodNumber = function () {
+    };
+
+    /**
+     *
      * @summary 执行投注
      * */
     jingweiplatform.prototype.execInvest = function () {
-        //TODO:需要中奖模块暴露出上期投注是否中奖，这样才能为下一步的盈利计算，提供必要的依据
+        //需要中奖模块暴露出上期投注是否中奖，这样才能为下一步的盈利计算，提供必要的依据
         //判定盈利是否已经到达最大，或者亏损到达最大，停止投注
         //是否到了投注时间，到了则投注，没到时间则继续等待
         //TODO:期号和当前要投的期号是否一致，一致投注，不一致则继续等待
