@@ -4,6 +4,11 @@
  * @summary 盈利计算模块 模块设计原则：独立不要有外部依赖,需要的都通过参数传递的方式来完成
  * */
 function profit(options) {
+    if (options === undefined) {
+        var message = 'profit constructor have 1 argument.';
+        console.error(message);
+        throw new SyntaxError(message);
+    }
     //用户设置
     this.userSettings = options.userSettings;
     //Testing requirement.
@@ -160,6 +165,6 @@ profit.prototype.getTotalWinMoney = function (playModeEnumItem) {
 };
 
 //Testing requirement.
-if(module){
-    module.exports = profit;
-}
+//if (module != undefined) {
+//    module.exports = profit;
+//}

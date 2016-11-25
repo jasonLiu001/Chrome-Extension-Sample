@@ -9,7 +9,7 @@ function openTime(options) {
     if (options === undefined) {
         var message = 'openTime constructor have 1 argument.';
         console.error(message);
-        throw  new SyntaxError(message);
+        throw new SyntaxError(message);
     }
     this.currentTime = options.currentTime;
     //默认延迟开奖时间
@@ -38,7 +38,7 @@ openTime.prototype.enableExecInvest = function () {
     } else {
         nextPeriodInvestTime = nextOpenTime;//更新开奖时间
         //Testing requirement.
-        if(this.nextPeriodInvestTime!=undefined){
+        if (this.nextPeriodInvestTime != undefined) {
             this.nextPeriodInvestTime = nextOpenTime;
         }
         return true;
@@ -112,6 +112,6 @@ openTime.prototype.getOpenTimeList = function (delaySeconds) {
 };
 
 //Testing requirement.
-if(module){
-    module.exports = openTime;
-}
+//if (module != undefined) {
+//    module.exports = openTime;
+//}

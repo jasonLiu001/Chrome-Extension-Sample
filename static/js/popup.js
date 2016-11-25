@@ -13,7 +13,7 @@ var popupActionType = {
  * */
 function executeAction(currentActionType) {
     var backgroundPage = chrome.extension.getBackgroundPage();
-    window.close();
+    //window.close();
     switch (currentActionType) {
         case popupActionType.btnStart:
             backgroundPage.btnStart();

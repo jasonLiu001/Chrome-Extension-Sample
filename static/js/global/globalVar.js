@@ -24,11 +24,3 @@ var lastInvestNumberString = null;
  * @summary 上期投注期号
  * */
 var lastInvestPeriodNumber = null;
-
-//Testing requirement.
-if (exports) {
-    exports.nextPeriodInvestTime = nextPeriodInvestTime;
-    exports.currentAccountBalance = currentAccountBalance;
-    exports.lastInvestNumberString = lastInvestNumberString;
-    exports.lastInvestPeriodNumber = lastInvestPeriodNumber;
-}
