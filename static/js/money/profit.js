@@ -1,5 +1,5 @@
 //Testing requirement.
-var currentAccountBalance = require('../global/globalVar.js').currentAccountBalance;
+//var currentAccountBalance = require('../global/globalVar.js').currentAccountBalance;
 
 /**
  *
@@ -162,4 +162,6 @@ profit.prototype.getTotalWinMoney = function (playModeEnumItem) {
 };
 
 //Testing requirement.
-module.exports = profit;
+if(module){
+    module.exports = profit;
+}

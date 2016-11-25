@@ -1,5 +1,5 @@
 //Testing requirement.
-var nextPeriodInvestTime = require('../global/globalVar.js').nextPeriodInvestTime;
+//var nextPeriodInvestTime = require('../global/globalVar.js').nextPeriodInvestTime;
 /**
  *
  * @summary 开奖时间类库 类的测试需求：随便传入一个当前时间，就应该返回下期的开奖时间
@@ -113,4 +113,6 @@ openTime.prototype.getOpenTimeList = function (delaySeconds) {
 };
 
 //Testing requirement.
-module.exports = openTime;
+if(module){
+    module.exports = openTime;
+}

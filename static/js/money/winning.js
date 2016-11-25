@@ -43,4 +43,6 @@ winning.prototype.isWin = function (investNumberString, prizeNumberString) {
 };
 
 //Testing requirement.
-module.exports = winning;
+if(module){
+    module.exports = winning;
+}

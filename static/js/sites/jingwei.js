@@ -1,8 +1,4 @@
 ;
-//Testing requirement.
-var lastInvestNumberString = require('../global/globalVar.js').lastInvestNumberString;
-//Testing requirement.
-var lastInvestPeriodNumber = require('../global/globalVar.js').lastInvestPeriodNumber;
 /**
  *
  * @summary 经纬平台
@@ -48,8 +44,9 @@ var lastInvestPeriodNumber = require('../global/globalVar.js').lastInvestPeriodN
         //判定盈利是否已经到达最大，或者亏损到达最大，停止投注
         //是否到了投注时间，到了则投注，没到时间则继续等待
         //期号和当前要投的期号是否一致，一致投注，不一致则继续等待
-        //TODO:当前的投注号码获取模块
+        //当前的投注号码获取模块
         //TODO:执行UI自动投注
+
 
         alert('ok');
     };

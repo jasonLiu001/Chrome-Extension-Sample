@@ -26,10 +26,9 @@ var lastInvestNumberString = null;
 var lastInvestPeriodNumber = null;
 
 //Testing requirement.
-exports.nextPeriodInvestTime = nextPeriodInvestTime;
-//Testing requirement.
-exports.currentAccountBalance = currentAccountBalance;
-//Testing requirement.
-exports.lastInvestNumberString = lastInvestNumberString;
-//Testing requirement.
-exports.lastInvestPeriodNumber = lastInvestPeriodNumber;
+if (exports) {
+    exports.nextPeriodInvestTime = nextPeriodInvestTime;
+    exports.currentAccountBalance = currentAccountBalance;
+    exports.lastInvestNumberString = lastInvestNumberString;
+    exports.lastInvestPeriodNumber = lastInvestPeriodNumber;
+}
