@@ -11,7 +11,7 @@ chrome.storage.sync.get(null, function (optionSettings) {
  * @summary 初始化自动投注对象，初始化完成后，需要立即调用方法=>setPlatform
  * setPlatform => 用来设置实际投注的平台，如果平台发生改变，需要改变该方法中调用的枚举值
  * */
-var automationObj = new uiAutomator();
+var automationObj = new platformFactory();
 //【必须】首先设置平台为经纬平台，或者为其他平台
 automationObj.setPlatform(enumPlatformList.jingwei);
 

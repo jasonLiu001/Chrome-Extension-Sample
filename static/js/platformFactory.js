@@ -2,7 +2,7 @@
  *
  * @summary 平台自动化入口 按照方法上的步骤step序号来调用
  * */
-function uiAutomator() {
+function platformFactory() {
     this.platForm = null;
 }
 
@@ -10,7 +10,7 @@ function uiAutomator() {
  *
  * @summary Step1: 设置平台
  * */
-uiAutomator.prototype.setPlatform = function (platformName) {
+platformFactory.prototype.setPlatform = function (platformName) {
     switch (platformName) {
         case window.enumPlatformList.jingwei://经纬平台
             this.platForm = new jingweiplatform();
@@ -25,7 +25,7 @@ uiAutomator.prototype.setPlatform = function (platformName) {
  *
  * @summary step 2: 执行自动化投注入口方法
  * */
-uiAutomator.prototype.execInvest = function () {
+platformFactory.prototype.execInvest = function () {
     this.implementVerify(this.platForm.execInvest, 'execInvest');
     this.platForm.execInvest();
 };
@@ -34,7 +34,7 @@ uiAutomator.prototype.execInvest = function () {
  *
  * @summary 停止自动投注
  * */
-uiAutomator.prototype.stopInvest = function () {
+platformFactory.prototype.stopInvest = function () {
     this.implementVerify(this.platForm.stopInvest, 'stopInvest');
     this.platForm.stopInvest();
 };
@@ -43,7 +43,7 @@ uiAutomator.prototype.stopInvest = function () {
  *
  * @summary 检查方法默认实现
  * */
-uiAutomator.prototype.implementVerify = function (func, funcName) {
+platformFactory.prototype.implementVerify = function (func, funcName) {
     if (this.platForm === null) {
         console.error('The property platForm is null, should use \'setPlatform\' to define a platform first. ');
     }
