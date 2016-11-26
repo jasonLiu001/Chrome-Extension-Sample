@@ -18,6 +18,6 @@ numberFactory.prototype.GetInvestNumberString = function (LastPrizeNumberString)
 };
 
 //Testing requirement.
-if(module){
-    module.exports = numberFactory;
-}
+//if(module){
+//    module.exports = numberFactory;
+//}

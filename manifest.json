@@ -12,12 +12,34 @@
     "page": "background.html",
     "persistent": false
   },
+  "content_scripts": [
+    {
+      "run_at":"document_end",
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": [
+        "static/libs/jquery-2.2.4.min.js",
+        "static/libs/moment.min.js",
+        "static/js/global/globalVar.js",
+        "static/js/enum/enumItem.js",
+        "static/js/time/opentime.js",
+        "static/js/money/winning.js",
+        "static/js/money/profit.js",
+        "static/js/number/numberFactory.js",
+        "static/js/automation/uiAutomation.js",
+        "static/js/sites/jingwei.js",
+        "static/js/platformFactory.js"
+      ]
+    }
+  ],
   "options_page": "options.html",
   "permissions": [
     "tabs",
     "storage",
-    "http://*/",
-    "https://*/"
+    "http://*/*",
+    "https://*/*"
   ],
   "browser_action": {
     "default_title": "AutomaticWebTool",
