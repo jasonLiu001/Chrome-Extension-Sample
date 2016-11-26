@@ -2,7 +2,7 @@
  *
  * @summary 平台自动化入口  该类是程序的入口类  按照方法上的步骤step序号来调用
  * */
-function appMain() {
+function AppMain() {
     this.platForm = null;
 }
 
@@ -10,7 +10,7 @@ function appMain() {
  *
  * @summary 服务提供器
  * */
-appMain.prototype.serviceProvider = function () {
+AppMain.prototype.serviceProvider = function () {
     return {
         //开奖时间模块
         openTimeService: new openTime({
@@ -26,7 +26,7 @@ appMain.prototype.serviceProvider = function () {
  *
  * @summary Step1: 设置平台
  * */
-appMain.prototype.setPlatform = function (platformName) {
+AppMain.prototype.setPlatform = function (platformName) {
     switch (platformName) {
         case window.enumPlatformList.jingwei://经纬平台
             this.platForm = new jingweiplatform();
@@ -41,7 +41,7 @@ appMain.prototype.setPlatform = function (platformName) {
  *
  * @summary step 2: 执行自动化投注入口方法
  * */
-appMain.prototype.execInvest = function () {
+AppMain.prototype.execInvest = function () {
     this.implementVerify(this.platForm.execInvest, 'execInvest');
     var self = this;
     var service = self.serviceProvider();
@@ -63,7 +63,7 @@ appMain.prototype.execInvest = function () {
  *
  * @summary 停止自动投注
  * */
-appMain.prototype.stopInvest = function () {
+AppMain.prototype.stopInvest = function () {
     this.implementVerify(this.platForm.stopInvest, 'stopInvest');
     this.platForm.stopInvest();
 };
@@ -72,7 +72,7 @@ appMain.prototype.stopInvest = function () {
  *
  * @summary 检查方法默认实现
  * */
-appMain.prototype.implementVerify = function (func, funcName) {
+AppMain.prototype.implementVerify = function (func, funcName) {
     if (this.platForm === null) {
         console.error('The property platForm is null, should use \'setPlatform\' to define a platform first. ');
     }
@@ -87,6 +87,6 @@ appMain.prototype.implementVerify = function (func, funcName) {
  * @summary 初始化自动投注对象，初始化完成后，需要立即调用方法=>setPlatform
  * setPlatform => 用来设置实际投注的平台，如果平台发生改变，需要改变该方法中调用的枚举值
  * */
-var automationObj = new appMain();
+var appmain = new AppMain();
 //【必须】首先设置平台为经纬平台，或者为其他平台
-automationObj.setPlatform(enumPlatformList.jingwei);
+appmain.setPlatform(enumPlatformList.jingwei);

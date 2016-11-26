@@ -8,17 +8,19 @@ chrome.storage.sync.get(null, function (optionSettings) {
 
 /**
  *
- * @summary popup页面 开始任务
+ * @summary popup页面中的按钮点击 响应事件
+ *          在background中通过api方法chrome.tabs.executeScript来调用ContentScript中的方法
  * */
 function btnStart() {
-    chrome.tabs.executeScript({code: 'automationObj.execInvest();'});
+    chrome.tabs.executeScript({code: 'appmain.execInvest();'});
 }
 
 /**
  *
- * @summary popup页面 结束任务
+ * @summary popup页面中的按钮点击 响应事件
+ *          background中通过api方法chrome.tabs.executeScript来调用ContentScript中的方法
  * */
 function btnStop() {
-    chrome.tabs.executeScript({code: 'automationObj.stopInvest();'});
+    chrome.tabs.executeScript({code: 'appmain.stopInvest();'});
 }
 
