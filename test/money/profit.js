@@ -72,8 +72,8 @@ describe('getInvestMoney function test.', function () {
     });
 });
 //是否可以执行投注
-describe('enableExecInvest function test.', function () {
-    it('enableExecInvest', function () {
+describe('isMaxOrMinProfit function test.', function () {
+    it('isMaxOrMinProfit', function () {
         userSettings.normalSettings.prizeMoney = 1930;
         userSettings.normalSettings.maxWinMoney = 10;
         userSettings.normalSettings.maxLoseMoney = 10;
@@ -82,6 +82,6 @@ describe('enableExecInvest function test.', function () {
             userSettings: userSettings,
             currentAccountBalance: 10
         });
-        expect(profit.enableExecInvest(enumPlayMode)).to.be.equal(false);
+        expect(profit.enableExecInvest(enumPlayMode)).to.be.equal(true);
     });
 });

@@ -60,7 +60,7 @@ AppMain.prototype.execInvest = function () {
         //期号和当前要投的期号是否一致，一致投注，不一致则继续等待
         //当前的投注号码获取模块
         //执行UI自动投注
-        if (!service.openTimeService.enableExecInvest()) {
+        if (!service.openTimeService.isInvestTime()) {
             console.log('Now we can not start invest!Current Time:' + moment().format('HH:mm:ss'));
         } else {
             self.platForm.execInvest();//执行ui投注

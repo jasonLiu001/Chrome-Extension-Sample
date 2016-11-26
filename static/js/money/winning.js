@@ -9,16 +9,6 @@ function winning() {
 
 /**
  *
- * @summary 是否可以执行投注
- * */
-winning.prototype.enableExecInvest = function (investNumberString, prizeNumberString) {
-    var self = this;
-    var isWin = self.isWin(investNumberString, prizeNumberString);
-    return isWin;
-};
-
-/**
- *
  * @summary 判定是否中奖
  * @param {String} investNumberString 投注号码
  * @param {String} prizeNumberString 当前中奖号码

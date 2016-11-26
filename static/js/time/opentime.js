@@ -24,10 +24,10 @@ function openTime(options) {
 
 /**
  *
- * @summary 是否允许执行投注
+ * @summary 是否到了投注时间 允许执行投注
  * @return {Boolean} true:允许投注 false:不允许投注
  * */
-openTime.prototype.enableExecInvest = function () {
+openTime.prototype.isInvestTime = function () {
     var self = this;
     if (nextPeriodInvestTime === null) {
         nextPeriodInvestTime = self.getNextOpenTime();

@@ -21,19 +21,19 @@ function profit(options) {
 
 /**
  *
- * @summary 是否可以执行投注
+ * @summary 是否到达最大利润或亏损最大值
  * @param {Object} playModeEnumItem 玩法模式枚举值
- * @return {Boolean} 是否可以执行投注
+ * @return {Boolean} true:达到最大值，可以不用继续投注了 false:未达到最大值，需要继续投注
  * */
-profit.prototype.enableExecInvest = function (playModeEnumItem) {
+profit.prototype.isMaxOrMinProfit = function (playModeEnumItem) {
     var self = this;
     var maxWinMoney = self.userSettings.normalSettings.maxWinMoney;
     var maxLoseMoney = self.userSettings.normalSettings.maxLoseMoney;
     var totalWinMoney = self.getTotalWinMoney(playModeEnumItem);
     if (Math.abs(totalWinMoney) >= maxWinMoney || Math.abs(totalWinMoney) >= maxLoseMoney) {
-        return false;
+        return true;
     }
-    return true;
+    return false;
 };
 
 /**

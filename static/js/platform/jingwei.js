@@ -37,6 +37,18 @@ jingweiplatform.prototype.getCurrentPeriodNumber = function () {
  * @summary 执行投注 必须实现的接口方法
  * */
 jingweiplatform.prototype.execInvest = function () {
-    //$('#kw').val('baidu');
-    //$('#su').toggle('click');
+    //关闭提示框
+    $('body > div:nth-child(17) > div:nth-child(4) > span').click();
+    //定位胆
+    $("#pmrange > li:nth-child(9)").click();
+    //个位
+    $('#subpms > div > ul > li:nth-child(6)').click();
+    //选择分模式
+    $('#extra_area > div:nth-child(4) > ul > li:nth-child(4)').click();
+    //选号码7
+    $('#betarea > div > div > ul > li:nth-child(8)').click();
+    //添加到投注
+    $('#extra_area > div:nth-child(1) > img').click();
+    //确认投注
+    $('#bets_list_area > div > div:nth-child(1) > img').click();
 };
