@@ -6,17 +6,18 @@
  * */
 
 function openTime(options) {
+    var self = this;
     if (options === undefined) {
         var message = 'openTime constructor have 1 argument.';
         console.error(message);
         throw new SyntaxError(message);
     }
-    this.currentTime = options.currentTime;
+    self.currentTime = options.currentTime;
     //默认延迟开奖时间
-    this.openTimeDelaySeconds = options.openTimeDelaySeconds;
+    self.openTimeDelaySeconds = options.openTimeDelaySeconds;
     //Testing requirement.
     if (options.nextPeriodInvestTime != null && options.nextPeriodInvestTime != undefined) {
-        this.nextPeriodInvestTime = options.nextPeriodInvestTime;
+        self.nextPeriodInvestTime = options.nextPeriodInvestTime;
         nextPeriodInvestTime = options.nextPeriodInvestTime;
     }
 }
@@ -27,19 +28,20 @@ function openTime(options) {
  * @return {Boolean} true:允许投注 false:不允许投注
  * */
 openTime.prototype.enableExecInvest = function () {
+    var self = this;
     if (nextPeriodInvestTime === null) {
-        nextPeriodInvestTime = this.getNextOpenTime();
+        nextPeriodInvestTime = self.getNextOpenTime();
         return true;
     }
-    var nextOpenTime = this.getNextOpenTime();
+    var nextOpenTime = self.getNextOpenTime();
     //未到开奖时间
     if (nextOpenTime.getTime() == nextPeriodInvestTime.getTime()) {
         return false;
     } else {
         nextPeriodInvestTime = nextOpenTime;//更新开奖时间
         //Testing requirement.
-        if (this.nextPeriodInvestTime != undefined) {
-            this.nextPeriodInvestTime = nextOpenTime;
+        if (self.nextPeriodInvestTime != undefined) {
+            self.nextPeriodInvestTime = nextOpenTime;
         }
         return true;
     }
@@ -51,13 +53,14 @@ openTime.prototype.enableExecInvest = function () {
  * @return {Date} 下期的开奖时间
  * */
 openTime.prototype.getNextOpenTime = function () {
-    var openTimeList = this.getOpenTimeList(this.openTimeDelaySeconds);
+    var self = this;
+    var openTimeList = self.getOpenTimeList(self.openTimeDelaySeconds);
     var nextOpenTime = null;
     var minDiffTime = Number.POSITIVE_INFINITY;//最小相差时间
     for (var i = 0; i < openTimeList.length; i++) {
         var currentOpenTime = openTimeList[i];
-        if (currentOpenTime > this.currentTime) {//最近的开奖时间
-            var currentDiffTime = currentOpenTime.getTime() - this.currentTime.getTime();
+        if (currentOpenTime > self.currentTime) {//最近的开奖时间
+            var currentDiffTime = currentOpenTime.getTime() - self.currentTime.getTime();
             if (currentDiffTime < minDiffTime) {
                 minDiffTime = currentDiffTime;
                 nextOpenTime = currentOpenTime;
@@ -74,10 +77,11 @@ openTime.prototype.getNextOpenTime = function () {
  * @return {Array} 时间数组
  * */
 openTime.prototype.getOpenTimeList = function (delaySeconds) {
+    var self = this;
     //当天的01:55到10:00
-    var year = this.currentTime.getFullYear();
-    var month = this.currentTime.getMonth();//month取值 0-11
-    var day = this.currentTime.getDate();
+    var year = self.currentTime.getFullYear();
+    var month = self.currentTime.getMonth();//month取值 0-11
+    var day = self.currentTime.getDate();
     //当天的00:00
     var firstTime = new Date(year, month, day, 0, 0, 00);
     //当天的10:00

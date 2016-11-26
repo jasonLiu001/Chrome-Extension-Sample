@@ -24,6 +24,7 @@ winning.prototype.enableExecInvest = function (investNumberString, prizeNumberSt
  * @param {String} prizeNumberString 当前中奖号码
  * */
 winning.prototype.isWin = function (investNumberString, prizeNumberString) {
+    var self = this;
     var investNumberArray = investNumberString.trim().split(/[ ,]/);
     var filterNumberArray = [];
     //过滤掉多余空白项

@@ -4,16 +4,17 @@
  * @summary 盈利计算模块 模块设计原则：独立不要有外部依赖,需要的都通过参数传递的方式来完成
  * */
 function profit(options) {
+    var self = this;
     if (options === undefined) {
         var message = 'profit constructor have 1 argument.';
         console.error(message);
         throw new SyntaxError(message);
     }
     //用户设置
-    this.userSettings = options.userSettings;
+    self.userSettings = options.userSettings;
     //Testing requirement.
     if (options.currentAccountBalance != undefined) {
-        this.currentAccountBalance = options.currentAccountBalance;
+        self.currentAccountBalance = options.currentAccountBalance;
         currentAccountBalance = options.currentAccountBalance;
     }
 }
@@ -25,9 +26,10 @@ function profit(options) {
  * @return {Boolean} 是否可以执行投注
  * */
 profit.prototype.enableExecInvest = function (playModeEnumItem) {
-    var maxWinMoney = this.userSettings.normalSettings.maxWinMoney;
-    var maxLoseMoney = this.userSettings.normalSettings.maxLoseMoney;
-    var totalWinMoney = this.getTotalWinMoney(playModeEnumItem);
+    var self = this;
+    var maxWinMoney = self.userSettings.normalSettings.maxWinMoney;
+    var maxLoseMoney = self.userSettings.normalSettings.maxLoseMoney;
+    var totalWinMoney = self.getTotalWinMoney(playModeEnumItem);
     if (Math.abs(totalWinMoney) >= maxWinMoney || Math.abs(totalWinMoney) >= maxLoseMoney) {
         return false;
     }
@@ -43,10 +45,11 @@ profit.prototype.enableExecInvest = function (playModeEnumItem) {
  * @return {Number} 盈利金额 如果未中奖，盈利金额则为负数
  * */
 profit.prototype.getWinMoney = function (investNumberString, playModeEnumItem, isWinPrize) {
+    var self = this;
     var money = 0;
-    var prizeMoney = this.userSettings.normalSettings.prizeMoney;//最大奖金
-    var playMode = this.userSettings.normalSettings.playMode;//玩法模式
-    var investMoney = this.getInvestMoney(investNumberString, playModeEnumItem);
+    var prizeMoney = self.userSettings.normalSettings.prizeMoney;//最大奖金
+    var playMode = self.userSettings.normalSettings.playMode;//玩法模式
+    var investMoney = self.getInvestMoney(investNumberString, playModeEnumItem);
     switch (playMode) {
         case playModeEnumItem.yuan://元模式
             if (isWinPrize) {
@@ -81,7 +84,8 @@ profit.prototype.getWinMoney = function (investNumberString, playModeEnumItem, i
  * @return {Number} 本局投注金额
  * */
 profit.prototype.getInvestMoney = function (investNumberString, playModeEnumItem) {
-    var playMode = this.userSettings.normalSettings.playMode;//玩法模式
+    var self = this;
+    var playMode = self.userSettings.normalSettings.playMode;//玩法模式
     var investNumberArray = investNumberString.trim().split(/[ ,]/);
     var filterNumberArray = [];
     //过滤掉多余空白项
@@ -115,12 +119,13 @@ profit.prototype.getInvestMoney = function (investNumberString, playModeEnumItem
  * @return {Number} 当前账户余额
  * */
 profit.prototype.setAccountBalanceAfterInvest = function (investNumberString, playModeEnumItem) {
+    var self = this;
     if (currentAccountBalance == null) {
-        currentAccountBalance = this.userSettings.normalSettings.accountBalance;
+        currentAccountBalance = self.userSettings.normalSettings.accountBalance;
     }
     //当前投注金额
-    var investMoney = this.getInvestMoney(investNumberString, playModeEnumItem);
-    var playMode = this.userSettings.normalSettings.playMode;//玩法模式
+    var investMoney = self.getInvestMoney(investNumberString, playModeEnumItem);
+    var playMode = self.userSettings.normalSettings.playMode;//玩法模式
     switch (playMode) {
         case playModeEnumItem.yuan://元模式
             currentAccountBalance = currentAccountBalance - investMoney;
@@ -133,8 +138,8 @@ profit.prototype.setAccountBalanceAfterInvest = function (investNumberString, pl
             break;
     }
     //Testing requirement.
-    if (this.currentAccountBalance != undefined) {
-        this.currentAccountBalance = currentAccountBalance;
+    if (self.currentAccountBalance != undefined) {
+        self.currentAccountBalance = currentAccountBalance;
     }
 };
 
@@ -145,11 +150,12 @@ profit.prototype.setAccountBalanceAfterInvest = function (investNumberString, pl
  * @return {Number} 总盈利金额 正值或者负值
  * */
 profit.prototype.getTotalWinMoney = function (playModeEnumItem) {
+    var self = this;
     if (currentAccountBalance == null) {
-        currentAccountBalance = this.userSettings.normalSettings.accountBalance;
+        currentAccountBalance = self.userSettings.normalSettings.accountBalance;
     }
-    var totalWinMoney = currentAccountBalance - this.userSettings.normalSettings.accountBalance;
-    var playMode = this.userSettings.normalSettings.playMode;//玩法模式
+    var totalWinMoney = currentAccountBalance - self.userSettings.normalSettings.accountBalance;
+    var playMode = self.userSettings.normalSettings.playMode;//玩法模式
     switch (playMode) {
         case playModeEnumItem.yuan://元模式
             totalWinMoney = totalWinMoney;

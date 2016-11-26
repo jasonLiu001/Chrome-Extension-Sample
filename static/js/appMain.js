@@ -3,9 +3,10 @@
  * @summary 平台自动化入口  该类是程序的入口类  按照方法上的步骤step序号来调用
  * */
 function AppMain() {
-    this.platForm = null;
+    var self = this;
+    self.platForm = null;
     //interval id
-    this.intervalId = null;
+    self.intervalId = null;
 }
 
 /**
@@ -44,12 +45,13 @@ AppMain.prototype.setPlatform = function (platformName) {
  * @summary step 2: 执行自动化投注入口方法
  * */
 AppMain.prototype.execInvest = function () {
-    if (this.intervalId != null) {
+    var self = this;
+    if (self.intervalId != null) {
         console.error("Program is now on running already! Should not start no more! ");
         return;
     }
-    this.implementVerify(this.platForm.execInvest, 'execInvest');
-    var self = this;
+    self.implementVerify(this.platForm.execInvest, 'execInvest');
+    console.log('Program has started now!');
     this.intervalId = setInterval(function () {
         var service = self.serviceProvider();
         //需要中奖模块暴露出上期投注是否中奖，这样才能为下一步的盈利计算，提供必要的依据
@@ -61,7 +63,7 @@ AppMain.prototype.execInvest = function () {
         if (!service.openTimeService.enableExecInvest()) {
             console.log('Now we can not start invest!Current Time:' + moment().format('HH:mm:ss'));
         } else {
-            this.platForm.execInvest();//执行ui投注
+            self.platForm.execInvest();//执行ui投注
             console.log('We can invest! Time:' + moment().format('HH:mm:ss'))
         }
     }, 4000);
@@ -84,7 +86,8 @@ AppMain.prototype.stopInvest = function () {
  * @summary 检查方法默认实现
  * */
 AppMain.prototype.implementVerify = function (func, funcName) {
-    if (this.platForm === null) {
+    var self = this;
+    if (self.platForm === null) {
         console.error('The property platForm is null, should use \'setPlatform\' to define a platform first. ');
     }
 
