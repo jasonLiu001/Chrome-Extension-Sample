@@ -8,6 +8,22 @@ function appMain() {
 
 /**
  *
+ * @summary 服务提供器
+ * */
+appMain.prototype.serviceProvider = function () {
+    return {
+        //开奖时间模块
+        openTimeService: new openTime({
+            currentTime: new Date(),
+            openTimeDelaySeconds: 0
+        }),
+        //获取投注号码模块
+        numberService: new numberFactory()
+    };
+};
+
+/**
+ *
  * @summary Step1: 设置平台
  * */
 appMain.prototype.setPlatform = function (platformName) {
@@ -50,22 +66,6 @@ appMain.prototype.execInvest = function () {
 appMain.prototype.stopInvest = function () {
     this.implementVerify(this.platForm.stopInvest, 'stopInvest');
     this.platForm.stopInvest();
-};
-
-/**
- *
- * @summary 服务提供器
- * */
-appMain.prototype.serviceProvider = function () {
-    return {
-        //开奖时间模块
-        openTimeService: new openTime({
-            currentTime: new Date(),
-            openTimeDelaySeconds: 0
-        }),
-        //获取投注号码模块
-        numberService: new numberFactory()
-    };
 };
 
 /**

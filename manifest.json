@@ -28,7 +28,7 @@
         "static/js/money/winning.js",
         "static/js/money/profit.js",
         "static/js/number/numberFactory.js",
-        "static/js/sites/jingwei.js",
+        "static/js/platform/jingwei.js",
         "static/js/appMain.js"
       ]
     }
