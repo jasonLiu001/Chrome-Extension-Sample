@@ -37,7 +37,8 @@ jingweiplatform.prototype.getCurrentPeriodNumber = function () {
  * @summary 执行投注 必须实现的接口方法
  * */
 jingweiplatform.prototype.execInvest = function () {
-
+    //$('#kw').val('baidu');
+    //$('#su').toggle('click');
 };
 
 /**
