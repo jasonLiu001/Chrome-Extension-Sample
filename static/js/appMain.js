@@ -4,6 +4,8 @@
  * */
 function AppMain() {
     this.platForm = null;
+    //interval id
+    this.intervalId = null;
 }
 
 /**
@@ -42,21 +44,27 @@ AppMain.prototype.setPlatform = function (platformName) {
  * @summary step 2: 执行自动化投注入口方法
  * */
 AppMain.prototype.execInvest = function () {
+    if (this.intervalId != null) {
+        console.error("Program is now on running already! Should not start no more! ");
+        return;
+    }
     this.implementVerify(this.platForm.execInvest, 'execInvest');
     var self = this;
-    var service = self.serviceProvider();
-    //需要中奖模块暴露出上期投注是否中奖，这样才能为下一步的盈利计算，提供必要的依据
-    //判定盈利是否已经到达最大，或者亏损到达最大，停止投注
-    //是否到了投注时间，到了则投注，没到时间则继续等待
-    //期号和当前要投的期号是否一致，一致投注，不一致则继续等待
-    //当前的投注号码获取模块
-    //执行UI自动投注
-    if (!service.openTimeService.enableExecInvest()) {
-        console.log('Now we can not start invest!Current Time:' + moment().format('HH:mm:ss'));
-    } else {
-        this.platForm.execInvest();//执行ui投注
-        console.log('We can invest! Time:' + moment().format('HH:mm:ss'))
-    }
+    this.intervalId = setInterval(function () {
+        var service = self.serviceProvider();
+        //需要中奖模块暴露出上期投注是否中奖，这样才能为下一步的盈利计算，提供必要的依据
+        //判定盈利是否已经到达最大，或者亏损到达最大，停止投注
+        //是否到了投注时间，到了则投注，没到时间则继续等待
+        //期号和当前要投的期号是否一致，一致投注，不一致则继续等待
+        //当前的投注号码获取模块
+        //执行UI自动投注
+        if (!service.openTimeService.enableExecInvest()) {
+            console.log('Now we can not start invest!Current Time:' + moment().format('HH:mm:ss'));
+        } else {
+            this.platForm.execInvest();//执行ui投注
+            console.log('We can invest! Time:' + moment().format('HH:mm:ss'))
+        }
+    }, 4000);
 };
 
 /**
@@ -64,8 +72,11 @@ AppMain.prototype.execInvest = function () {
  * @summary 停止自动投注
  * */
 AppMain.prototype.stopInvest = function () {
-    this.implementVerify(this.platForm.stopInvest, 'stopInvest');
-    this.platForm.stopInvest();
+    var self = this;
+    clearInterval(self.intervalId);
+    //重置定时器
+    self.intervalId = null;
+    console.log('Program has stopped manually!');
 };
 
 /**

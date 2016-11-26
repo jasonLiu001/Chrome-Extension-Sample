@@ -40,12 +40,3 @@ jingweiplatform.prototype.execInvest = function () {
     //$('#kw').val('baidu');
     //$('#su').toggle('click');
 };
-
-/**
- *
- * @summary 停止投注 必须实现的接口方法
- * */
-jingweiplatform.prototype.stopInvest = function () {
-    //TODO:这里添加测试代码
-    alert('ok');
-};
