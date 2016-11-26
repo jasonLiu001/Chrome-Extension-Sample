@@ -11,9 +11,7 @@ chrome.storage.sync.get(null, function (optionSettings) {
  * @summary popup页面 开始任务
  * */
 function btnStart() {
-    setInterval(function () {
-        chrome.tabs.executeScript({code: 'automationObj.execInvest();'});
-    }, 5000);
+    chrome.tabs.executeScript({code: 'automationObj.execInvest();'});
 }
 
 /**

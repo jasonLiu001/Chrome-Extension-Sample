@@ -28,9 +28,8 @@
         "static/js/money/winning.js",
         "static/js/money/profit.js",
         "static/js/number/numberFactory.js",
-        "static/js/automation/uiAutomation.js",
         "static/js/sites/jingwei.js",
-        "static/js/platformFactory.js"
+        "static/js/appMain.js"
       ]
     }
   ],
