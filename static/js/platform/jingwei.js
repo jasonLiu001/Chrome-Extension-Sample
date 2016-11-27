@@ -10,13 +10,24 @@ function jingweiplatform() {
 
 /**
  *
- * @summary 获取上期开奖期号
+ * @summary 获取上期期号
  * @return {String} 期号 如：20161120-032
  * */
 jingweiplatform.prototype.getLastPeriodNumberString = function () {
     var periodNumber = $('#t_code_sn').text();
     var dateString = moment().format("YYYYMMDD");
     return dateString + '-' + periodNumber;
+};
+
+/**
+ *
+ * @summary 获取当前期号
+ * @return {String} 期号 如：20161120-032
+ * */
+jingweiplatform.prototype.getCurrentPeriodNumberString = function () {
+    var currentPeriodNumber = $('#t_issue_sn').text();
+    var dateString = moment().format("YYYYMMDD");
+    return dateString + '-' + currentPeriodNumber;
 };
 
 /**
@@ -37,17 +48,6 @@ jingweiplatform.prototype.getCurrentAccountBalance = function () {
 jingweiplatform.prototype.getLastPrizeNumber = function () {
     var number = $('#t_code_code').text().split(' ').join('');
     return Number(number);
-};
-
-/**
- *
- * @summary 获取当前投注期号
- * @return {String} 期号 如：20161120-032
- * */
-jingweiplatform.prototype.getCurrentPeriodNumberString = function () {
-    var currentPeriodNumber = $('#t_issue_sn').text();
-    var dateString = moment().format("YYYYMMDD");
-    return dateString + '-' + currentPeriodNumber;
 };
 
 /**
