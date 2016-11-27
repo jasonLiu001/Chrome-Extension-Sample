@@ -201,7 +201,7 @@ AppMain.prototype.execInvest = function () {
         //执行UI自动投注
         self.platForm.execInvest(investNumberString);//执行ui投注
         console.log('Auto invest successfully.Current Time:' + moment().format('HH:mm:ss'));
-    }, 4000);
+    }, 10000);
 };
 
 /**
