@@ -116,7 +116,7 @@ AppMain.prototype.execInvest = function () {
         originalAccountBalance = self.userSettings.runtimeVariable.originalAccountBalance;
         //恢复账户余额 到全局变量
         if (self.userSettings.runtimeVariable.currentAccountBalance != null) {
-            currentAccountBalance = self.userSettings.runtimeVariable.currentAccountBalance;
+            currentAccountBalance = parseFloat(self.userSettings.runtimeVariable.currentAccountBalance);
         }
         //恢复下期投注时间 到全局变量
         if (self.userSettings.runtimeVariable.nextPeriodInvestTime != null) {
@@ -126,6 +126,15 @@ AppMain.prototype.execInvest = function () {
 
     console.log('Program has started now!');
     this.intervalId = setInterval(function () {
+        //bug:解决 刷新后全局变量丢失问题 保证刷新页面时，全局变量值不丢失
+        if (currentAccountBalance != null && nextPeriodInvestTime != null) {
+            self.setUserSettings({
+                runtimeVariable: {
+                    currentAccountBalance: currentAccountBalance,
+                    nextPeriodInvestTime: nextPeriodInvestTime.toString()
+                }
+            });
+        }
         if (self.exeCount == 65) {//已经执行了65次，刷新页面保持登录态
             window.location.reload();
             return;
@@ -207,13 +216,6 @@ AppMain.prototype.execInvest = function () {
         var investNumberString = service.numberService.getInvestNumberString();
         //执行UI自动投注
         self.platForm.execInvest(investNumberString);//执行ui投注
-        //bug:解决 刷新后全局变量丢失问题 保证刷新页面时，全局变量值不丢失
-        self.setUserSettings({
-            runtimeVariable: {
-                currentAccountBalance: currentAccountBalance,
-                nextPeriodInvestTime: nextPeriodInvestTime.toString()
-            }
-        });
         console.log('Auto invest successfully.Current Time:' + moment().format('HH:mm:ss'));
     }, 10000);
 };
