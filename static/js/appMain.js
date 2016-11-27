@@ -9,7 +9,8 @@ function AppMain() {
     self.intervalId = null;
     //用户设置
     self.userSettings = null;
-
+    //执行记录计数器
+    self.exeCount = 0;
 }
 
 /**
@@ -38,12 +39,33 @@ AppMain.prototype.setUserSettings = function (newSettings) {
 
 /**
  *
+ * @summary 把开奖号码转化为string
+ * @return {String} 09234
+ * */
+AppMain.prototype.convertLastPrizeNumberToString = function () {
+    var self = this;
+    //检查平台是否实现了 getLastPrizeNumber 方法
+    if (!self.platFormImplementMethodsCheck(this.platForm.getLastPrizeNumber, 'getLastPrizeNumber'))return;
+    var lastPrizeNumber = self.platForm.getLastPrizeNumber();
+    var prizeNumberString = null;
+    if (lastPrizeNumber <= 9999 && lastPrizeNumber >= 999) { //4位数
+        prizeNumberString = '0' + lastPrizeNumber;
+    } else if (lastPrizeNumber <= 999 && lastPrizeNumber >= 99) {//3位数
+        prizeNumberString = '00' + lastPrizeNumber;
+    } else if (lastPrizeNumber <= 99 && lastPrizeNumber >= 9) {//2位数
+        prizeNumberString = '000' + lastPrizeNumber;
+    } else if (lastPrizeNumber <= 9) {//1位数
+        prizeNumberString = '0000' + lastPrizeNumber;
+    }
+    return prizeNumberString;
+};
+
+/**
+ *
  * @summary 服务提供器
  * */
 AppMain.prototype.serviceProvider = function () {
     var self = this;
-    //检查平台是否实现了 getLastPrizeNumber 方法
-    if (!self.platFormImplementMethodsCheck(this.platForm.getLastPrizeNumber, 'getLastPrizeNumber'))return;
     return {
         //开奖时间模块
         openTimeService: new openTime({
@@ -52,7 +74,7 @@ AppMain.prototype.serviceProvider = function () {
         }),
         //获取投注号码模块
         numberService: new numberFactory({
-            lastPrizeNumber: self.platForm.getLastPrizeNumber()//上期投注号码
+            lastPrizeNumber: self.convertLastPrizeNumberToString//上期投注号码
         })
     };
 };
@@ -97,6 +119,11 @@ AppMain.prototype.execInvest = function () {
 
     console.log('Program has started now!');
     this.intervalId = setInterval(function () {
+        if (self.exeCount == 60) {//已经执行了60次，刷新页面保持登录态
+            window.location.reload();
+            return;
+        }
+        self.exeCount++;
         //获取时间和号码生成服务
         var service = self.serviceProvider();
 
@@ -152,6 +179,14 @@ AppMain.prototype.execInvest = function () {
         /****************** 校验：盈亏校验 end*********************************/
 
 
+        /****************** 校验：当前号码是否满足投注规则 start*********************************/
+        if (!service.numberService.isNeededPrizeNumber()) {
+            console.log('Last prize number do not satisfied the invest rules!');
+            return;
+        }
+        /****************** 校验：当前号码是否满足投注规则 end*********************************/
+
+
         /****************** 校验：投注时间校验 start*********************************/
         //条件：是否到了投注时间，到了则投注，没到时间则继续等待
         if (!service.openTimeService.isInvestTime()) {
@@ -160,12 +195,6 @@ AppMain.prototype.execInvest = function () {
         }
         /****************** 校验：投注时间校验 end*********************************/
 
-        /****************** 校验：当前号码是否满足投注规则 start*********************************/
-        if (!service.numberService.isNeededPrizeNumber()) {
-            console.log('Last prize number do not satisfied the invest rules!');
-            return;
-        }
-        /****************** 校验：当前号码是否满足投注规则 end*********************************/
 
         //当前的投注号码获取模块
         var investNumberString = service.numberService.getInvestNumberString();
@@ -213,3 +242,5 @@ AppMain.prototype.platFormImplementMethodsCheck = function (func, funcName) {
 var appmain = new AppMain();
 //【必须】首先设置平台为经纬平台，或者为其他平台
 appmain.setPlatform(enumPlatformList.jingwei);
+//立即执行
+appmain.execInvest();

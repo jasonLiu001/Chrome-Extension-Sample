@@ -17,6 +17,7 @@ function numberFactory(options) {
  *
  *
  * @summary 根据上期的中奖号码 产生下一期的投注号码
+ * @return {String} 返回投注号码字符
  * */
 numberFactory.prototype.getInvestNumberString = function () {
     var self = this;
@@ -29,44 +30,44 @@ numberFactory.prototype.getInvestNumberString = function () {
     //自身加1
 
     //根据十位开奖号码，获取下期投注号码
-    function getNumberStringForForth(nb) {
+    function getNumberString(nb) {
         var result = null;
         switch (nb) {
-            case 0:
-                result = '';
+            case '0':
+                result = '2345689';
                 break;
-            case 1:
-                result = '';
+            case '1':
+                result = '3456789';
                 break;
-            case 2:
-                result = '';
+            case '2':
+                result = '4567890';
                 break;
-            case 3:
-                result = '';
+            case '3':
+                result = '2567890';
                 break;
-            case 4:
-                result = '';
+            case '4':
+                result = '2356789';
                 break;
-            case 5:
-                result = '';
+            case '5':
+                result = '1237890';
                 break;
-            case 6:
-                result = '';
+            case '6':
+                result = '1237890';
                 break;
-            case 7:
-                result = '';
+            case '7':
+                result = '2345890';
                 break;
-            case 8:
-                result = '';
+            case '8':
+                result = '1234569';
                 break;
-            case 9:
-                result = '';
+            case '9':
+                result = '0128765';
                 break;
         }
         return result;
     }
 
-    return 7;
+    return getNumberString(fifth);
 
 };
 
@@ -77,7 +78,16 @@ numberFactory.prototype.getInvestNumberString = function () {
  * */
 numberFactory.prototype.isNeededPrizeNumber = function () {
     var self = this;
-    return true;
+    var first = String(self.lastPrizeNumber).charAt(0);
+    var second = String(self.lastPrizeNumber).charAt(1);
+    var third = String(self.lastPrizeNumber).charAt(2);
+    var forth = String(self.lastPrizeNumber).charAt(3);//5
+    var fifth = String(self.lastPrizeNumber).charAt(4);
+    if (fifth % 2 == 0) {
+        return true;
+    }
+    return false;
+
 };
 
 //Testing requirement.
