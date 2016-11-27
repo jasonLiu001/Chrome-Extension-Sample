@@ -7,7 +7,34 @@ function AppMain() {
     self.platForm = null;
     //interval id
     self.intervalId = null;
+    //用户设置
+    self.userSettings = null;
+
 }
+
+/**
+ *
+ * @summary 获取用户设置
+ * @param {Function} callback 回调方法
+ * */
+AppMain.prototype.getUserSettings = function (callback) {
+    var self = this;
+    window.userSettings.get(function (optionSettings) {
+        self.userSettings = optionSettings;
+        if (callback && typeof callback === 'function') {
+            callback();
+        }
+    });
+};
+
+/**
+ *
+ * @summary 设置用户设置
+ * */
+AppMain.prototype.setUserSettings = function (newSettings) {
+    var self = this;
+    window.userSettings.set($.extend({}, self.userSettings, newSettings));
+};
 
 /**
  *
@@ -15,6 +42,8 @@ function AppMain() {
  * */
 AppMain.prototype.serviceProvider = function () {
     var self = this;
+    //检查平台是否实现了 getLastPrizeNumberString 方法
+    if (!self.platFormImplementMethodsCheck(this.platForm.getLastPrizeNumberString, 'getLastPrizeNumberString'))return;
     return {
         //开奖时间模块
         openTimeService: new openTime({
@@ -53,22 +82,81 @@ AppMain.prototype.execInvest = function () {
         console.error("Program is now on running already! Should not start no more! ");
         return;
     }
-    self.implementVerify(this.platForm.execInvest, 'execInvest');
+    //检查平台的方法实现 如果没有实现则不会执行投注
+    if (!self.platFormImplementMethodsCheck(this.platForm.execInvest, 'execInvest'))return;
+    if (!self.platFormImplementMethodsCheck(this.platForm.getCurrentAccountBalance, 'getCurrentAccountBalance'))return;
+    if (!self.platFormImplementMethodsCheck(this.platForm.getLastPeriodNumberString, 'getLastPeriodNumberString'))return;
+    if (!self.platFormImplementMethodsCheck(this.platForm.getCurrentPeriodNumberString, 'getCurrentPeriodNumberString'))return;
+
+    //账户初始余额
+    var originalAccountBalance = 0;
+    //获取用户设置 主要是为了获取 初始账户余额值
+    self.getUserSettings(function () {
+        originalAccountBalance = self.userSettings.normalSettings.accountBalance;
+    });
+
     console.log('Program has started now!');
     this.intervalId = setInterval(function () {
+        //获取时间和号码生成服务
         var service = self.serviceProvider();
-        //需要中奖模块暴露出上期投注是否中奖，这样才能为下一步的盈利计算，提供必要的依据
-        //判定盈利是否已经到达最大，或者亏损到达最大，停止投注
-        //是否到了投注时间，到了则投注，没到时间则继续等待
-        //期号和当前要投的期号是否一致，一致投注，不一致则继续等待
-        //当前的投注号码获取模块
-        //执行UI自动投注
+
+
+        /****************** 校验1：期号校验 start*********************************/
+        //获取上期期号
+        var lastPeriodNumberString = self.platForm.getLastPeriodNumberString();
+        //获取投注期期号
+        var currentPeriodNumberString = self.platForm.getCurrentPeriodNumberString();
+        //如果期号前半部分相等 同一天的情况
+        if (lastPeriodNumberString.substring(0, lastPeriodNumberString.indexOf('-')) == currentPeriodNumberString.substring(0, currentPeriodNumberString.indexOf('-'))) {
+            //期号的差 不等于1 说明不是要投注的下一期的期号
+            if (parseInt(lastPeriodNumberString.substring(lastPeriodNumberString.indexOf('-') + 1)) - parseInt(currentPeriodNumberString.substring(currentPeriodNumberString.indexOf('-') + 1)) != 1) {
+                //条件1: 期号和当前要投的期号是否一致，一致投注，不一致则继续等待
+                console.log('Wait for the next. because the current period number is not the one we need to invest!');
+                return;
+            }
+        } else {//隔天期号的情况 期号的差 不等于119 说明不是要投注的下一期的期号
+            if (parseInt(lastPeriodNumberString.substring(lastPeriodNumberString.indexOf('-') + 1)) - parseInt(currentPeriodNumberString.substring(currentPeriodNumberString.indexOf('-') + 1)) != 119) {
+                //条件1: 期号和当前要投的期号是否一致，一致投注，不一致则继续等待
+                console.log('Wait for the next. because the current period number is not the one we need to invest!');
+                return;
+            }
+        }
+        /****************** 校验1：期号校验 end*********************************/
+
+
+        /****************** 校验2：盈亏校验 start*********************************/
+            //获取当前账户余额
+        currentAccountBalance = self.platForm.getCurrentAccountBalance();
+        //更新 当前的账户余额
+        self.setUserSettings({normalSettings: {accountBalance: currentAccountBalance}});
+        //最大盈利金额
+        var maxWinMoney = self.userSettings.normalSettings.maxWinMoney;
+        //最大亏损金额
+        var maxLoseMoney = self.userSettings.normalSettings.maxLoseMoney;
+        //当前余额 和 初始余额 差值
+        var accountDiff = currentAccountBalance - originalAccountBalance;
+        //条件2：判定盈利是否已经到达最大，或者亏损到达最大，停止投注
+        if ((accountDiff > 0 && accountDiff >= maxWinMoney) || (accountDiff < 0 && Math.abs(accountDiff) >= maxLoseMoney)) {
+            console.log('Invest auto stop! Reached maxWinMoney or maxLoseMoney');
+            return;
+        }
+        /****************** 校验2：盈亏校验 end*********************************/
+
+
+        /****************** 校验3：投注时间校验 start*********************************/
+        //条件3：是否到了投注时间，到了则投注，没到时间则继续等待
         if (!service.openTimeService.isInvestTime()) {
             console.log('Now we can not start invest!Current Time:' + moment().format('HH:mm:ss'));
-        } else {
-            self.platForm.execInvest();//执行ui投注
-            console.log('We can invest! Time:' + moment().format('HH:mm:ss'))
+            return;
         }
+        /****************** 校验3：投注时间校验 end*********************************/
+
+
+        //当前的投注号码获取模块
+        var investNumberString = service.numberService.getInvestNumberString();
+        //执行UI自动投注
+        self.platForm.execInvest(investNumberString);//执行ui投注
+        console.log('Auto invest successfully.Current Time:' + moment().format('HH:mm:ss'));
     }, 4000);
 };
 
@@ -88,15 +176,18 @@ AppMain.prototype.stopInvest = function () {
  *
  * @summary 检查方法默认实现
  * */
-AppMain.prototype.implementVerify = function (func, funcName) {
+AppMain.prototype.platFormImplementMethodsCheck = function (func, funcName) {
     var self = this;
     if (self.platForm === null) {
         console.error('The property platForm is null, should use \'setPlatform\' to define a platform first. ');
+        return false;
     }
 
     if (!(func && typeof (func) === 'function')) {
         console.error('The platform must implement the method \'' + funcName + '\'.');
+        return false;
     }
+    return true;
 };
 
 /**

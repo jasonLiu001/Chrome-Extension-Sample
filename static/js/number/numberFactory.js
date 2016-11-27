@@ -18,7 +18,7 @@ function numberFactory(options) {
  *
  * @summary 根据上期的中奖号码 产生下一期的投注号码
  * */
-numberFactory.prototype.GetInvestNumberString = function () {
+numberFactory.prototype.getInvestNumberString = function () {
     var self = this;
     var originalNumberString = '0123456789';
     var first = self.lastPrizeNumberString.charAt(0);

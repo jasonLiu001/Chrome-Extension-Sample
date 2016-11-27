@@ -48,7 +48,7 @@ jingweiplatform.prototype.getLastPrizeNumberString = function () {
  * @summary 获取当前投注期号
  * @return {String} 期号 如：20161120-032
  * */
-jingweiplatform.prototype.getCurrentPeriodNumber = function () {
+jingweiplatform.prototype.getCurrentPeriodNumberString = function () {
     var currentPeriodNumber = $('#t_issue_sn').text();
     var dateString = moment().format("YYYYMMDD");
     return dateString + '-' + currentPeriodNumber;
@@ -57,8 +57,9 @@ jingweiplatform.prototype.getCurrentPeriodNumber = function () {
 /**
  *
  * @summary 执行投注 必须实现的接口方法
+ * @param {String} investNumberString 需要投注的号码
  * */
-jingweiplatform.prototype.execInvest = function () {
+jingweiplatform.prototype.execInvest = function (investNumberString) {
     //关闭提示框
     $('body > div:nth-child(18) > div:nth-child(4) > span').click();
     //定位胆
