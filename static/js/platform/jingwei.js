@@ -14,9 +14,9 @@ function jingweiplatform() {
  * @return {String} 期号 如：20161120-032
  * */
 jingweiplatform.prototype.getLastPeriodNumberString = function () {
-    var periodNumber = $('#area_recent_codes > div:nth-child(1) > span > span:nth-child(1)').text();
+    var periodNumber = $('#t_code_sn').text();
     var dateString = moment().format("YYYYMMDD");
-    return periodNumber + '-' + dateString;
+    return dateString + '-' + periodNumber;
 };
 
 /**
@@ -32,15 +32,11 @@ jingweiplatform.prototype.getCurrentAccountBalance = function () {
 /**
  *
  * @summary 获取上期开奖号码
- * @return {String} 上期开奖号码 如：58903
+ * @return {Number} 上期开奖号码 如：58903
  * */
-jingweiplatform.prototype.getLastPrizeNumberString = function () {
-    var first = $('#area_recent_codes > div:nth-child(1) > span > span:nth-child(2)').text();
-    var second = $('#area_recent_codes > div:nth-child(1) > span > span:nth-child(3)').text();
-    var third = $('#area_recent_codes > div:nth-child(1) > span > span:nth-child(4)').text();
-    var forth = $('#area_recent_codes > div:nth-child(1) > span > span:nth-child(5)').text();
-    var fifth = $('#area_recent_codes > div:nth-child(1) > span > span:nth-child(6)').text();
-    return first + '' + second + '' + third + '' + forth + '' + fifth;
+jingweiplatform.prototype.getLastPrizeNumber = function () {
+    var number = $('#t_code_code').text().split(' ').join('');
+    return Number(number);
 };
 
 /**

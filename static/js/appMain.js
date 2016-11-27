@@ -19,7 +19,7 @@ function AppMain() {
  * */
 AppMain.prototype.getUserSettings = function (callback) {
     var self = this;
-    window.userSettings.get(function (optionSettings) {
+    chrome.storage.sync.get(null, function (optionSettings) {
         self.userSettings = optionSettings;
         if (callback && typeof callback === 'function') {
             callback();
@@ -33,7 +33,7 @@ AppMain.prototype.getUserSettings = function (callback) {
  * */
 AppMain.prototype.setUserSettings = function (newSettings) {
     var self = this;
-    window.userSettings.set($.extend({}, self.userSettings, newSettings));
+    chrome.storage.sync.set($.extend(true, {}, self.userSettings, newSettings));
 };
 
 /**
@@ -42,8 +42,8 @@ AppMain.prototype.setUserSettings = function (newSettings) {
  * */
 AppMain.prototype.serviceProvider = function () {
     var self = this;
-    //检查平台是否实现了 getLastPrizeNumberString 方法
-    if (!self.platFormImplementMethodsCheck(this.platForm.getLastPrizeNumberString, 'getLastPrizeNumberString'))return;
+    //检查平台是否实现了 getLastPrizeNumber 方法
+    if (!self.platFormImplementMethodsCheck(this.platForm.getLastPrizeNumber, 'getLastPrizeNumber'))return;
     return {
         //开奖时间模块
         openTimeService: new openTime({
@@ -52,7 +52,7 @@ AppMain.prototype.serviceProvider = function () {
         }),
         //获取投注号码模块
         numberService: new numberFactory({
-            lastPrizeNumberString: self.platForm.getLastPrizeNumberString()//上期投注号码
+            lastPrizeNumber: self.platForm.getLastPrizeNumber()//上期投注号码
         })
     };
 };
@@ -101,7 +101,7 @@ AppMain.prototype.execInvest = function () {
         var service = self.serviceProvider();
 
 
-        /****************** 校验1：期号校验 start*********************************/
+        /****************** 校验：期号校验 start*********************************/
         //获取上期期号
         var lastPeriodNumberString = self.platForm.getLastPeriodNumberString();
         //获取投注期期号
@@ -109,22 +109,31 @@ AppMain.prototype.execInvest = function () {
         //如果期号前半部分相等 同一天的情况
         if (lastPeriodNumberString.substring(0, lastPeriodNumberString.indexOf('-')) == currentPeriodNumberString.substring(0, currentPeriodNumberString.indexOf('-'))) {
             //期号的差 不等于1 说明不是要投注的下一期的期号
-            if (parseInt(lastPeriodNumberString.substring(lastPeriodNumberString.indexOf('-') + 1)) - parseInt(currentPeriodNumberString.substring(currentPeriodNumberString.indexOf('-') + 1)) != 1) {
-                //条件1: 期号和当前要投的期号是否一致，一致投注，不一致则继续等待
+            if (parseInt(currentPeriodNumberString.substring(currentPeriodNumberString.indexOf('-') + 1)) - parseInt(lastPeriodNumberString.substring(lastPeriodNumberString.indexOf('-') + 1)) != 1) {
+                //条件: 期号和当前要投的期号是否一致，一致投注，不一致则继续等待
                 console.log('Wait for the next. because the current period number is not the one we need to invest!');
                 return;
             }
         } else {//隔天期号的情况 期号的差 不等于119 说明不是要投注的下一期的期号
             if (parseInt(lastPeriodNumberString.substring(lastPeriodNumberString.indexOf('-') + 1)) - parseInt(currentPeriodNumberString.substring(currentPeriodNumberString.indexOf('-') + 1)) != 119) {
-                //条件1: 期号和当前要投的期号是否一致，一致投注，不一致则继续等待
+                //条件: 期号和当前要投的期号是否一致，一致投注，不一致则继续等待
                 console.log('Wait for the next. because the current period number is not the one we need to invest!');
                 return;
             }
         }
-        /****************** 校验1：期号校验 end*********************************/
+        /****************** 校验：期号校验 end*********************************/
 
 
-        /****************** 校验2：盈亏校验 start*********************************/
+        /****************** 校验：开奖号是否已经出来 start*********************************/
+        var lastPrizeNumber = self.platForm.getLastPrizeNumber();
+        if (isNaN(lastPrizeNumber)) {
+            console.log('Wait for the prize number come out.');
+            return;
+        }
+        /****************** 校验：开奖号是否已经出来 end*********************************/
+
+
+        /****************** 校验：盈亏校验 start*********************************/
             //获取当前账户余额
         currentAccountBalance = self.platForm.getCurrentAccountBalance();
         //更新 当前的账户余额
@@ -135,28 +144,28 @@ AppMain.prototype.execInvest = function () {
         var maxLoseMoney = self.userSettings.normalSettings.maxLoseMoney;
         //当前余额 和 初始余额 差值
         var accountDiff = currentAccountBalance - originalAccountBalance;
-        //条件2：判定盈利是否已经到达最大，或者亏损到达最大，停止投注
+        //条件：判定盈利是否已经到达最大，或者亏损到达最大，停止投注
         if ((accountDiff > 0 && accountDiff >= maxWinMoney) || (accountDiff < 0 && Math.abs(accountDiff) >= maxLoseMoney)) {
             console.log('Invest auto stop! Reached maxWinMoney or maxLoseMoney');
             return;
         }
-        /****************** 校验2：盈亏校验 end*********************************/
+        /****************** 校验：盈亏校验 end*********************************/
 
 
-        /****************** 校验3：投注时间校验 start*********************************/
-        //条件3：是否到了投注时间，到了则投注，没到时间则继续等待
+        /****************** 校验：投注时间校验 start*********************************/
+        //条件：是否到了投注时间，到了则投注，没到时间则继续等待
         if (!service.openTimeService.isInvestTime()) {
             console.log('Now we can not start invest!Current Time:' + moment().format('HH:mm:ss'));
             return;
         }
-        /****************** 校验3：投注时间校验 end*********************************/
+        /****************** 校验：投注时间校验 end*********************************/
 
-        /****************** 校验4：当前号码是否满足投注规则 start*********************************/
+        /****************** 校验：当前号码是否满足投注规则 start*********************************/
         if (!service.numberService.isNeededPrizeNumber()) {
             console.log('Last prize number do not satisfied the invest rules!');
             return;
         }
-        /****************** 校验4：当前号码是否满足投注规则 end*********************************/
+        /****************** 校验：当前号码是否满足投注规则 end*********************************/
 
         //当前的投注号码获取模块
         var investNumberString = service.numberService.getInvestNumberString();

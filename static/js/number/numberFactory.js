@@ -10,7 +10,7 @@ function numberFactory(options) {
         console.error(message);
         throw new SyntaxError(message);
     }
-    this.lastPrizeNumberString = options.lastPrizeNumberString;
+    this.lastPrizeNumber = options.lastPrizeNumber;
 }
 
 /**
@@ -21,11 +21,11 @@ function numberFactory(options) {
 numberFactory.prototype.getInvestNumberString = function () {
     var self = this;
     var originalNumberString = '0123456789';
-    var first = self.lastPrizeNumberString.charAt(0);
-    var second = self.lastPrizeNumberString.charAt(1);
-    var third = self.lastPrizeNumberString.charAt(2);
-    var forth = self.lastPrizeNumberString.charAt(3);//5
-    var fifth = self.lastPrizeNumberString.charAt(4);
+    var first = String(self.lastPrizeNumber).charAt(0);
+    var second = String(self.lastPrizeNumber).charAt(1);
+    var third = String(self.lastPrizeNumber).charAt(2);
+    var forth = String(self.lastPrizeNumber).charAt(3);//5
+    var fifth = String(self.lastPrizeNumber).charAt(4);
     //自身加1
 
     //根据十位开奖号码，获取下期投注号码
