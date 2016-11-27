@@ -10,5 +10,10 @@ window.defaultSettings = {
     },
     autoShutDownSettings: {
         autoShutdownPC: 'maxWinMoney'
+    },
+    runtimeVariable: {
+        originalAccountBalance: 0,//账户初始余额
+        nextPeriodInvestTime: null,//下期的投注时间
+        currentAccountBalance: null//当前账户余额
     }
 };

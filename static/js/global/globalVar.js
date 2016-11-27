@@ -11,6 +11,11 @@
 var nextPeriodInvestTime = null;
 /**
  *
- * @summary 当前账户余额
+ * @summary 账户初始余额
+ * */
+var originalAccountBalance = 0;
+/**
+ *
+ * @summary 运行过程中的 当前账户余额
  * */
 var currentAccountBalance = null;

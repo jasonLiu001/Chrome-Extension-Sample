@@ -58,7 +58,21 @@ function optionPage(settings) {
     };
     //保存设置
     self.saveSettings = function () {
-        window.userSettings.set(self.userSettings, function () {
+        window.userSettings.set({
+            normalSettings: {
+                maxWinMoney: self.userSettings.normalSettings.maxWinMoney(),
+                maxLoseMoney: self.userSettings.normalSettings.maxLoseMoney(),
+                accountBalance: self.userSettings.normalSettings.accountBalance()
+            },
+            autoShutDownSettings: {
+                autoShutdownPC: self.userSettings.autoShutDownSettings.autoShutdownPC()
+            },
+            runtimeVariable: {
+                originalAccountBalance: self.userSettings.normalSettings.accountBalance(),//账户初始余额
+                nextPeriodInvestTime: null,//重置 运行时变量 下期的投注时间
+                currentAccountBalance: null//重置 运行时变量 当前账户余额
+            }
+        }, function () {
             //提示保存结果
             self.showAlertMessage('保存成功！');
         });

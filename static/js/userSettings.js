@@ -25,16 +25,7 @@
      * @summary 保存用户自定义设置
      * */
     userSettings.set = function (userSettings, callback) {
-        chrome.storage.sync.set({
-            normalSettings: {
-                maxWinMoney: userSettings.normalSettings.maxWinMoney(),
-                maxLoseMoney: userSettings.normalSettings.maxLoseMoney(),
-                accountBalance: userSettings.normalSettings.accountBalance()
-            },
-            autoShutDownSettings: {
-                autoShutdownPC: userSettings.autoShutDownSettings.autoShutdownPC()
-            }
-        }, callback);
+        chrome.storage.sync.set(userSettings, callback);
     };
 
     if (window.userSettings === undefined) {
