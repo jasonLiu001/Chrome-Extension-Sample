@@ -47,7 +47,7 @@ AppMain.prototype.convertLastPrizeNumberToString = function () {
     //检查平台是否实现了 getLastPrizeNumber 方法
     if (!self.platFormImplementMethodsCheck(this.platForm.getLastPrizeNumber, 'getLastPrizeNumber'))return;
     var lastPrizeNumber = self.platForm.getLastPrizeNumber();
-    var prizeNumberString = null;
+    var prizeNumberString = lastPrizeNumber;
     if (lastPrizeNumber <= 9999 && lastPrizeNumber >= 999) { //4位数
         prizeNumberString = '0' + lastPrizeNumber;
     } else if (lastPrizeNumber <= 999 && lastPrizeNumber >= 99) {//3位数
@@ -74,7 +74,7 @@ AppMain.prototype.serviceProvider = function () {
         }),
         //获取投注号码模块
         numberService: new numberFactory({
-            lastPrizeNumber: self.convertLastPrizeNumberToString//上期投注号码
+            lastPrizeNumber: self.convertLastPrizeNumberToString()//上期投注号码
         })
     };
 };
@@ -201,7 +201,7 @@ AppMain.prototype.execInvest = function () {
         //执行UI自动投注
         self.platForm.execInvest(investNumberString);//执行ui投注
         console.log('Auto invest successfully.Current Time:' + moment().format('HH:mm:ss'));
-    }, 10000);
+    }, 4000);
 };
 
 /**
