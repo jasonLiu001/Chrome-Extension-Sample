@@ -33,40 +33,51 @@ numberFactory.prototype.getInvestNumberString = function () {
         var result = null;
         switch (nb) {
             case 0:
-                result='';
+                result = '';
                 break;
             case 1:
-                result='';
+                result = '';
                 break;
             case 2:
-                result='';
+                result = '';
                 break;
             case 3:
-                result='';
+                result = '';
                 break;
             case 4:
-                result='';
+                result = '';
                 break;
             case 5:
-                result='';
+                result = '';
                 break;
             case 6:
-                result='';
+                result = '';
                 break;
             case 7:
-                result='';
+                result = '';
                 break;
             case 8:
-                result='';
+                result = '';
                 break;
             case 9:
-                result='';
+                result = '';
                 break;
         }
         return result;
     }
 
+    return 7;
 
+};
+
+/**
+ *
+ * @summary 上期的开奖号码是否满足当前投注条件
+ * @return {Boolean} true满足条件 false:不满足条件
+ * */
+numberFactory.prototype.isNeededPrizeNumber = function () {
+    var self = this;
+    return true;
 };
 
 //Testing requirement.

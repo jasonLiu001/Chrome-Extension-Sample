@@ -151,6 +151,12 @@ AppMain.prototype.execInvest = function () {
         }
         /****************** 校验3：投注时间校验 end*********************************/
 
+        /****************** 校验4：当前号码是否满足投注规则 start*********************************/
+        if (!service.numberService.isNeededPrizeNumber()) {
+            console.log('Last prize number do not satisfied the invest rules!');
+            return;
+        }
+        /****************** 校验4：当前号码是否满足投注规则 end*********************************/
 
         //当前的投注号码获取模块
         var investNumberString = service.numberService.getInvestNumberString();
