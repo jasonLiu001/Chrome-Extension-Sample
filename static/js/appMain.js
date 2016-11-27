@@ -110,7 +110,7 @@ AppMain.prototype.execInvest = function () {
     if (!self.platFormImplementMethodsCheck(this.platForm.getLastPeriodNumberString, 'getLastPeriodNumberString'))return;
     if (!self.platFormImplementMethodsCheck(this.platForm.getCurrentPeriodNumberString, 'getCurrentPeriodNumberString'))return;
 
-    //获取用户设置 主要是为了获取 初始账户余额值等信息
+    //bug:解决 刷新后全局变量丢失问题
     self.getUserSettings(function () {
         //恢复 账户初始余额 到全局变量
         originalAccountBalance = self.userSettings.runtimeVariable.originalAccountBalance;
@@ -207,7 +207,7 @@ AppMain.prototype.execInvest = function () {
         var investNumberString = service.numberService.getInvestNumberString();
         //执行UI自动投注
         self.platForm.execInvest(investNumberString);//执行ui投注
-        //保证刷新页面时，全局变量值不丢失
+        //bug:解决 刷新后全局变量丢失问题 保证刷新页面时，全局变量值不丢失
         self.setUserSettings({
             runtimeVariable: {
                 currentAccountBalance: currentAccountBalance,
