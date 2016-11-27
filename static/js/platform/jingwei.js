@@ -14,6 +14,19 @@ function jingweiplatform() {
  * @return {String} 期号 如：20161120-032
  * */
 jingweiplatform.prototype.getLastPeriodNumberString = function () {
+    var periodNumber = $('#area_recent_codes > div:nth-child(1) > span > span:nth-child(1)').text();
+    var dateString = moment().format("YYYYMMDD");
+    return periodNumber + '-' + dateString;
+};
+
+/**
+ *
+ * @summary 获取当前账户余额
+ * @return {Number} 当前账户余额
+ * */
+jingweiplatform.prototype.getCurrentAccountBalance = function () {
+    var accountBalance = $('#t_user_cash').text();
+    return parseFloat(accountBalance);
 };
 
 /**
@@ -22,6 +35,12 @@ jingweiplatform.prototype.getLastPeriodNumberString = function () {
  * @return {String} 上期开奖号码 如：58903
  * */
 jingweiplatform.prototype.getLastPrizeNumberString = function () {
+    var first = $('#area_recent_codes > div:nth-child(1) > span > span:nth-child(2)').text();
+    var second = $('#area_recent_codes > div:nth-child(1) > span > span:nth-child(3)').text();
+    var third = $('#area_recent_codes > div:nth-child(1) > span > span:nth-child(4)').text();
+    var forth = $('#area_recent_codes > div:nth-child(1) > span > span:nth-child(5)').text();
+    var fifth = $('#area_recent_codes > div:nth-child(1) > span > span:nth-child(6)').text();
+    return first + '' + second + '' + third + '' + forth + '' + fifth;
 };
 
 /**
@@ -30,6 +49,9 @@ jingweiplatform.prototype.getLastPrizeNumberString = function () {
  * @return {String} 期号 如：20161120-032
  * */
 jingweiplatform.prototype.getCurrentPeriodNumber = function () {
+    var currentPeriodNumber = $('#t_issue_sn').text();
+    var dateString = moment().format("YYYYMMDD");
+    return dateString + '-' + currentPeriodNumber;
 };
 
 /**
@@ -38,7 +60,7 @@ jingweiplatform.prototype.getCurrentPeriodNumber = function () {
  * */
 jingweiplatform.prototype.execInvest = function () {
     //关闭提示框
-    $('body > div:nth-child(17) > div:nth-child(4) > span').click();
+    $('body > div:nth-child(18) > div:nth-child(4) > span').click();
     //定位胆
     $("#pmrange > li:nth-child(9)").click();
     //个位

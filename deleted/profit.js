@@ -38,6 +38,39 @@ profit.prototype.isMaxOrMinProfit = function (playModeEnumItem) {
 
 /**
  *
+ * @summary 获取投注之后的当前账户余额
+ * @param {String} investNumberString 投注的号码字符
+ * @param {Object} playModeEnumItem 玩法模式枚举值
+ * @param {Boolean} isWinPrize 是否中奖
+ * @return {Number} 当前账户余额
+ * */
+profit.prototype.setAccountBalanceAfterInvest = function (investNumberString, playModeEnumItem, isWinPrize) {
+    var self = this;
+    if (currentAccountBalance == null) {
+        currentAccountBalance = self.userSettings.normalSettings.accountBalance;
+    }
+    //当前盈利金额
+    var winMoney = self.getWinMoney(investNumberString, playModeEnumItem, isWinPrize);
+    var playMode = self.userSettings.normalSettings.playMode;//玩法模式
+    switch (playMode) {
+        case playModeEnumItem.yuan://元模式
+            currentAccountBalance = currentAccountBalance + winMoney;
+            break;
+        case playModeEnumItem.jiao://角模式
+            currentAccountBalance = (((currentAccountBalance / 10) * 100) + (winMoney * 100)) / 100;
+            break;
+        case playModeEnumItem.feng://分模式
+            currentAccountBalance = (((currentAccountBalance / 100) * 100) + (winMoney * 100)) / 100;
+            break;
+    }
+    //Testing requirement.
+    if (self.currentAccountBalance != undefined) {
+        self.currentAccountBalance = currentAccountBalance;
+    }
+};
+
+/**
+ *
  * @summary 单次投注中奖后的盈利金额  奖金-本次投注金额=单次盈利金额
  * @param {String} investNumberString 投注的号码字符
  * @param {Object} playModeEnumItem 玩法模式枚举值
@@ -109,39 +142,6 @@ profit.prototype.getInvestMoney = function (investNumberString, playModeEnumItem
             break;
     }
     return investMoney;
-};
-
-/**
- *
- * @summary 获取投注之后的当前账户余额
- * @param {String} investNumberString 投注的号码字符
- * @param {Object} playModeEnumItem 玩法模式枚举值
- * @param {Boolean} isWinPrize 是否中奖
- * @return {Number} 当前账户余额
- * */
-profit.prototype.setAccountBalanceAfterInvest = function (investNumberString, playModeEnumItem, isWinPrize) {
-    var self = this;
-    if (currentAccountBalance == null) {
-        currentAccountBalance = self.userSettings.normalSettings.accountBalance;
-    }
-    //当前盈利金额
-    var winMoney = self.getWinMoney(investNumberString, playModeEnumItem, isWinPrize);
-    var playMode = self.userSettings.normalSettings.playMode;//玩法模式
-    switch (playMode) {
-        case playModeEnumItem.yuan://元模式
-            currentAccountBalance = currentAccountBalance + winMoney;
-            break;
-        case playModeEnumItem.jiao://角模式
-            currentAccountBalance = (((currentAccountBalance / 10) * 100) + (winMoney * 100)) / 100;
-            break;
-        case playModeEnumItem.feng://分模式
-            currentAccountBalance = (((currentAccountBalance / 100) * 100) + (winMoney * 100)) / 100;
-            break;
-    }
-    //Testing requirement.
-    if (self.currentAccountBalance != undefined) {
-        self.currentAccountBalance = currentAccountBalance;
-    }
 };
 
 /**

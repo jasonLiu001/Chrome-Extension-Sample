@@ -14,6 +14,7 @@ function AppMain() {
  * @summary 服务提供器
  * */
 AppMain.prototype.serviceProvider = function () {
+    var self = this;
     return {
         //开奖时间模块
         openTimeService: new openTime({
@@ -21,7 +22,9 @@ AppMain.prototype.serviceProvider = function () {
             openTimeDelaySeconds: 0
         }),
         //获取投注号码模块
-        numberService: new numberFactory()
+        numberService: new numberFactory({
+            lastPrizeNumberString: self.platForm.getLastPrizeNumberString()//上期投注号码
+        })
     };
 };
 
