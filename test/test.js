@@ -1,28 +1,4 @@
-/**
- *
- *
- * @summary 产生号码投注模块
- * */
-function numberFactory(options) {
-    var self = this;
-    if (options === undefined) {
-        var message = 'profit constructor have 1 argument.';
-        console.error(message);
-        throw new SyntaxError(message);
-    }
-    //上期开奖号码
-    this.lastPrizeNumberString = options.lastPrizeNumberString;
-    //上期期号
-    this.lastPeriodNumberString = options.lastPeriodNumberString;
-}
-
-/**
- *
- *
- * @summary 根据上期的中奖号码 产生下一期的投注号码
- * @return {String} 返回投注号码字符
- * */
-numberFactory.prototype.getInvestNumberString = function () {
+var getInvestNumberString = function () {
     var self = this;
 
     /**
@@ -50,15 +26,11 @@ numberFactory.prototype.getInvestNumberString = function () {
 
 
     //开奖号码信息
-    var prizeFirst = Number(self.lastPrizeNumberString.charAt(0));
-    var prizeSecond = Number(self.lastPrizeNumberString.charAt(1));
-    var prizeThird = Number(self.lastPrizeNumberString.charAt(2));
-    var prizeForth = Number(self.lastPrizeNumberString.charAt(3));//5
-    var prizeFifth = Number(self.lastPrizeNumberString.charAt(4));
+    var prizeForth = 5;//5
+    var prizeFifth = 1;
     //开奖期号信息
-    var periodFirst = Number(self.lastPeriodNumberString.charAt(0));
-    var periodSecond = Number(self.lastPeriodNumberString.charAt(1));
-    var periodThird = Number(self.lastPeriodNumberString.charAt(2));
+    var periodSecond = 1;
+    var periodThird = 2;
     var totalNumberArray = getTotalNumberArray();
     //杀十位个位和
     var sum = prizeForth + prizeFifth;
@@ -108,28 +80,12 @@ numberFactory.prototype.getInvestNumberString = function () {
         }
         forthFilterArray.push(item);
     }
+    console.log(forthFilterArray.length);
 
 
     return forthFilterArray.join(' ');
 
 };
 
-/**
- *
- * @summary 上期的开奖号码是否满足当前投注条件
- * @return {Boolean} true满足条件 false:不满足条件
- * */
-numberFactory.prototype.isNeededPrizeNumber = function () {
-    var self = this;
-    var first = Number(self.lastPrizeNumberString.charAt(0));
-    var second = Number(self.lastPrizeNumberString.charAt(1));
-    var third = Number(self.lastPrizeNumberString.charAt(2));
-    var forth = Number(self.lastPrizeNumberString.charAt(3));//5
-    var fifth = Number(self.lastPrizeNumberString.charAt(4));
-    return true;
-};
+console.log(getInvestNumberString());
 
-//Testing requirement.
-//if(module){
-//    module.exports = numberFactory;
-//}

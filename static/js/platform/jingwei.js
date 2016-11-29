@@ -56,6 +56,37 @@ jingweiplatform.prototype.getLastPrizeNumber = function () {
  * @param {String} investNumberString 需要投注的号码
  * */
 jingweiplatform.prototype.execInvest = function (investNumberString) {
+    var self = this;
+    //后二直选投注
+    self.houErZhiXuanInvest(investNumberString);
+};
+
+/**
+ *
+ * 后二直选投注
+ * */
+jingweiplatform.prototype.houErZhiXuanInvest = function (investNumberString) {
+    //关闭提示框
+    $('body > div:nth-child(18) > div:nth-child(4) > span').click();
+    //后二
+    $("#pmrange > li:nth-child(8)").click();
+    //只选单式
+    $('#subpms > div:nth-child(1) > ul > li:nth-child(2)').click();
+    //选择厘模式
+    $('#extra_area > div:nth-child(4) > ul > li:nth-child(5)').click();
+    //填充号码
+    $('#betarea > div > textarea').val(investNumberString);
+    //添加到投注
+    $('#extra_area > div:nth-child(1) > img').click();
+    //确认投注
+    $('#bets_list_area > div > div:nth-child(1) > img').click();
+};
+
+/**
+ *
+ * 后一投注
+ * */
+jingweiplatform.prototype.houYiInvest = function (investNumberString) {
     //关闭提示框
     $('body > div:nth-child(18) > div:nth-child(4) > span').click();
     //定位胆

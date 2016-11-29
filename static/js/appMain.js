@@ -45,7 +45,7 @@ AppMain.prototype.setUserSettings = function (newSettings) {
 AppMain.prototype.convertLastPrizeNumberToString = function () {
     var self = this;
     //检查平台是否实现了 getLastPrizeNumber 方法
-    if (!self.platFormImplementMethodsCheck(this.platForm.getLastPrizeNumber, 'getLastPrizeNumber'))return;
+    if (!self.platFormImplementMethodsCheck(self.platForm.getLastPrizeNumber, 'getLastPrizeNumber'))return;
     var lastPrizeNumber = self.platForm.getLastPrizeNumber();
     var prizeNumberString = lastPrizeNumber;
     if (lastPrizeNumber <= 9999 && lastPrizeNumber >= 999) { //4位数
@@ -62,6 +62,19 @@ AppMain.prototype.convertLastPrizeNumberToString = function () {
 
 /**
  *
+ * @summary 后期上期期号
+ * @retrun {String} 期号 如:012
+ * */
+AppMain.prototype.convertLastPeriodNumberToString = function () {
+    var self = this;
+    if (!self.platFormImplementMethodsCheck(self.platForm.getLastPeriodNumberString, 'getLastPeriodNumberString'))return;
+    var tempStr = self.platForm.getLastPeriodNumberString();
+    var periodString = tempStr.substring(tempStr.indexOf('-') + 1);//上期期号信息
+    return periodString;
+};
+
+/**
+ *
  * @summary 服务提供器
  * */
 AppMain.prototype.serviceProvider = function () {
@@ -74,7 +87,8 @@ AppMain.prototype.serviceProvider = function () {
         }),
         //获取投注号码模块
         numberService: new numberFactory({
-            lastPrizeNumber: self.convertLastPrizeNumberToString()//上期投注号码
+            lastPrizeNumberString: self.convertLastPrizeNumberToString(),//上期开奖号码
+            lastPeriodNumberString: self.convertLastPeriodNumberToString()//上期期号信息
         })
     };
 };
@@ -105,10 +119,10 @@ AppMain.prototype.execInvest = function () {
         return;
     }
     //检查平台的方法实现 如果没有实现则不会执行投注
-    if (!self.platFormImplementMethodsCheck(this.platForm.execInvest, 'execInvest'))return;
-    if (!self.platFormImplementMethodsCheck(this.platForm.getCurrentAccountBalance, 'getCurrentAccountBalance'))return;
-    if (!self.platFormImplementMethodsCheck(this.platForm.getLastPeriodNumberString, 'getLastPeriodNumberString'))return;
-    if (!self.platFormImplementMethodsCheck(this.platForm.getCurrentPeriodNumberString, 'getCurrentPeriodNumberString'))return;
+    if (!self.platFormImplementMethodsCheck(self.platForm.execInvest, 'execInvest'))return;
+    if (!self.platFormImplementMethodsCheck(self.platForm.getCurrentAccountBalance, 'getCurrentAccountBalance'))return;
+    if (!self.platFormImplementMethodsCheck(self.platForm.getLastPeriodNumberString, 'getLastPeriodNumberString'))return;
+    if (!self.platFormImplementMethodsCheck(self.platForm.getCurrentPeriodNumberString, 'getCurrentPeriodNumberString'))return;
 
     //bug:解决 刷新后全局变量丢失问题
     self.getUserSettings(function () {
