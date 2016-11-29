@@ -163,16 +163,20 @@ AppMain.prototype.execInvest = function () {
         var lastPeriodNumberString = self.platForm.getLastPeriodNumberString();
         //获取投注期期号
         var currentPeriodNumberString = self.platForm.getCurrentPeriodNumberString();
+        //两期之间的差值
+        var distanceDiff = parseInt(currentPeriodNumberString.substring(currentPeriodNumberString.indexOf('-') + 1)) - parseInt(lastPeriodNumberString.substring(lastPeriodNumberString.indexOf('-') + 1));
+        //期号的日期部分
+        var periodDataPart = lastPeriodNumberString.substring(0, lastPeriodNumberString.indexOf('-')) == currentPeriodNumberString.substring(0, currentPeriodNumberString.indexOf('-'));
         //如果期号前半部分相等 同一天的情况
-        if (lastPeriodNumberString.substring(0, lastPeriodNumberString.indexOf('-')) == currentPeriodNumberString.substring(0, currentPeriodNumberString.indexOf('-'))) {
+        if (periodDataPart) {
             //期号的差 不等于1 说明不是要投注的下一期的期号
-            if (parseInt(currentPeriodNumberString.substring(currentPeriodNumberString.indexOf('-') + 1)) - parseInt(lastPeriodNumberString.substring(lastPeriodNumberString.indexOf('-') + 1)) != 1) {
+            if (distanceDiff != 1 && distanceDiff != 119) {
                 //条件: 期号和当前要投的期号是否一致，一致投注，不一致则继续等待
                 console.log('Wait for the next. because the current period number is not the one we need to invest!');
                 return;
             }
         } else {//隔天期号的情况 期号的差 不等于119 说明不是要投注的下一期的期号
-            if (parseInt(lastPeriodNumberString.substring(lastPeriodNumberString.indexOf('-') + 1)) - parseInt(currentPeriodNumberString.substring(currentPeriodNumberString.indexOf('-') + 1)) != 119) {
+            if (distanceDiff != 119) {
                 //条件: 期号和当前要投的期号是否一致，一致投注，不一致则继续等待
                 console.log('Wait for the next. because the current period number is not the one we need to invest!');
                 return;
