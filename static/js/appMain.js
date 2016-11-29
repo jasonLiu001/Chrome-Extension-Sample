@@ -47,7 +47,7 @@ AppMain.prototype.convertLastPrizeNumberToString = function () {
     //检查平台是否实现了 getLastPrizeNumber 方法
     if (!self.platFormImplementMethodsCheck(self.platForm.getLastPrizeNumber, 'getLastPrizeNumber'))return;
     var lastPrizeNumber = self.platForm.getLastPrizeNumber();
-    var prizeNumberString = lastPrizeNumber;
+    var prizeNumberString = String(lastPrizeNumber);
     if (lastPrizeNumber <= 9999 && lastPrizeNumber >= 999) { //4位数
         prizeNumberString = '0' + lastPrizeNumber;
     } else if (lastPrizeNumber <= 999 && lastPrizeNumber >= 99) {//3位数
