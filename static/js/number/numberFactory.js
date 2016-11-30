@@ -72,24 +72,25 @@ numberFactory.prototype.getInvestNumberString = function () {
         }
         firstFilterArray.push(item);
     }
-    //杀连号
+    //杀跨度
     var secondFilterArray = [];
+    var betweenValue = Math.abs(prizeForth - prizeFifth);
     for (var i = 0; i < firstFilterArray.length; i++) {
         var item = firstFilterArray[i];
         var first = Number(item.charAt(0));
         var second = Number(item.charAt(1));
-        if (Math.abs(first - second) == 1 || Math.abs(first - second) == 9) {
+        if (betweenValue == Math.abs(first - second)) {
             continue;
         }
         secondFilterArray.push(item);
     }
-    //十位杀期号的个位 个位杀期号的十位
+    //十位杀千位 个位万位
     var thirdFilterArray = [];
     for (var i = 0; i < secondFilterArray.length; i++) {
         var item = secondFilterArray[i];
         var first = Number(item.charAt(0));
         var second = Number(item.charAt(1));
-        if (periodThird == first || periodSecond == second) {
+        if (prizeSecond == first || prizeFirst == second) {
             continue;
         }
         thirdFilterArray.push(item);

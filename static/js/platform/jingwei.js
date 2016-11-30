@@ -72,8 +72,8 @@ jingweiplatform.prototype.houErZhiXuanInvest = function (investNumberString) {
     $("#pmrange > li:nth-child(8)").click();
     //只选单式
     $('#subpms > div:nth-child(1) > ul > li:nth-child(2)').click();
-    //选择厘模式
-    $('#extra_area > div:nth-child(4) > ul > li:nth-child(5)').click();
+    //选择分模式
+    $('#extra_area > div:nth-child(4) > ul > li:nth-child(4)').click();
     //填充号码
     $('#betarea > div > textarea').val(investNumberString);
     //添加到投注
