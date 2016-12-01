@@ -76,6 +76,8 @@ jingweiplatform.prototype.houErZhiXuanInvest = function (investNumberString) {
     $('#extra_area > div:nth-child(4) > ul > li:nth-child(4)').click();
     //填充号码
     $('#betarea > div > textarea').val(investNumberString);
+    //设置投注倍数
+    $('#extra_area > div:nth-child(5) > input[type="text"]').val(2);
     //添加到投注
     $('#extra_area > div:nth-child(1) > img').click();
     //确认投注
