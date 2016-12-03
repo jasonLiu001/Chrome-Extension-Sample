@@ -16,8 +16,8 @@
     {
       "run_at": "document_end",
       "matches": [
-        "http://*/*",
-        "https://*/*"
+        "http://*.jw268.com/",
+        "https://*.jw268.com/"
       ],
       "js": [
         "static/libs/jquery-2.2.4.min.js",
