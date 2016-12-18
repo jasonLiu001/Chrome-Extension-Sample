@@ -8,7 +8,8 @@
  * @summary 投注平台枚举
  * */
 window.enumPlatformList = {
-    jingwei: 'jingwei'
+    jingwei: 'jingwei',
+    dreams:'dreams'
 };
 
 /**

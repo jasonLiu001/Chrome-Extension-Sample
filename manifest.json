@@ -14,10 +14,10 @@
   },
   "content_scripts": [
     {
+      "all_frames": true,
       "run_at": "document_end",
       "matches": [
-        "http://*.jw268.com/",
-        "https://*.jw268.com/"
+        "https://*/*","http://*/*"
       ],
       "js": [
         "static/libs/jquery-2.2.4.min.js",
@@ -27,6 +27,7 @@
         "static/js/time/opentime.js",
         "static/js/number/numberFactory.js",
         "static/js/platform/jingwei.js",
+        "static/js/platform/dreams.js",
         "static/js/appMain.js"
       ]
     }

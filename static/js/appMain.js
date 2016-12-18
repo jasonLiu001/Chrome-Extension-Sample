@@ -102,6 +102,9 @@ AppMain.prototype.setPlatform = function (platformName) {
         case window.enumPlatformList.jingwei://经纬平台
             this.platForm = new jingweiplatform();
             break;
+        case window.enumPlatformList.dreams://梦之城
+            this.platForm = new CityOfDreamsPlatForm();
+            break;
         default :
             this.platForm = new jingweiplatform();
             break;
@@ -275,6 +278,6 @@ AppMain.prototype.platFormImplementMethodsCheck = function (func, funcName) {
  * */
 var appmain = new AppMain();
 //【必须】首先设置平台为经纬平台，或者为其他平台
-appmain.setPlatform(enumPlatformList.jingwei);
+appmain.setPlatform(enumPlatformList.dreams);
 //立即执行
 appmain.execInvest();
