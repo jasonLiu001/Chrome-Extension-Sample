@@ -126,6 +126,20 @@ AppMain.prototype.execInvest = function () {
     if (!self.platFormImplementMethodsCheck(self.platForm.getCurrentAccountBalance, 'getCurrentAccountBalance'))return;
     if (!self.platFormImplementMethodsCheck(self.platForm.getLastPeriodNumberString, 'getLastPeriodNumberString'))return;
     if (!self.platFormImplementMethodsCheck(self.platForm.getCurrentPeriodNumberString, 'getCurrentPeriodNumberString'))return;
+    //平台实现方法的取值的正确性检查
+    if (self.platForm.getLastPeriodNumberString() == '' || self.platForm.getLastPeriodNumberString() === undefined || self.platForm.getLastPeriodNumberString() === null) {
+        console.log('getLastPeriodNumberString returns empty. Auto invest aborted!');
+        return;
+    }
+    if (self.platForm.getCurrentPeriodNumberString() == '' || self.platForm.getCurrentPeriodNumberString() === undefined || self.platForm.getCurrentPeriodNumberString() === null) {
+        console.log('getCurrentPeriodNumberString() returns empty. Auto invest aborted!');
+        return;
+    }
+    if (self.platForm.getCurrentAccountBalance() == '' || self.platForm.getCurrentAccountBalance() === undefined || self.platForm.getCurrentAccountBalance() === null) {
+        console.log('getCurrentAccountBalance() returns empty. Auto invest aborted! ');
+        return;
+    }
+
 
     //bug:解决 刷新后全局变量丢失问题
     self.getUserSettings(function () {

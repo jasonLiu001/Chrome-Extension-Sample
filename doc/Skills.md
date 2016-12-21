@@ -8,5 +8,8 @@
 * 在**popup**页和**option**页可以使用下面的api来获取到background中的值或者方法
   <pre><code>chrome.extension.getBackgroundPage</code></pre>
 
+## 网页中如果包含iframe时
+* 模拟点击的时候一定要注意处理是父窗口的元素还是iframe中的元素
+
 
 

@@ -14,7 +14,7 @@ function CityOfDreamsPlatForm() {
  * @return {String} 期号 如：20161120-032
  * */
 CityOfDreamsPlatForm.prototype.getLastPeriodNumberString = function () {
-    var periodString = $('#lastissue').text();
+    var periodString = $(window.frames["mainFrame"].document).find('#lastissue').text();
     var periodNumber = periodString.substring(8);
     var dateString = moment().format("YYYYMMDD");
     return dateString + '-' + periodNumber;
@@ -26,7 +26,7 @@ CityOfDreamsPlatForm.prototype.getLastPeriodNumberString = function () {
  * @return {String} 期号 如：20161120-032
  * */
 CityOfDreamsPlatForm.prototype.getCurrentPeriodNumberString = function () {
-    var currentString = $('#curissue').text();
+    var currentString = $(window.frames["mainFrame"].document).find('#curissue').text();
     var currentPeriodNumber = currentString.substr(10, 3);
     var dateString = moment().format("YYYYMMDD");
     return dateString + '-' + currentPeriodNumber;
@@ -38,7 +38,13 @@ CityOfDreamsPlatForm.prototype.getCurrentPeriodNumberString = function () {
  * @return {Number} 当前账户余额
  * */
 CityOfDreamsPlatForm.prototype.getCurrentAccountBalance = function () {
-    var accountBalance = $('#walletamount').text();
+    var displayValue = $('#NoneDisplayAmount').css("display");
+    if (displayValue == 'inline') {//隐藏余额时，点击显示余额
+        $(window.document).find('#EnableAmount')[0].click();
+    }
+    //刷新余额
+    $(window.document).find('#refreshwallet').click();
+    var accountBalance = $(window.document).find('#walletamount').text();
     return parseFloat(accountBalance);
 };
 
@@ -48,7 +54,12 @@ CityOfDreamsPlatForm.prototype.getCurrentAccountBalance = function () {
  * @return {Number} 上期开奖号码 如：58903
  * */
 CityOfDreamsPlatForm.prototype.getLastPrizeNumber = function () {
-    var number = $('#lastdigit1').val() + $('#lastdigit2').val() + $('#lastdigit3').val() + $('#lastdigit4').val() + $('#lastdigit5').val();
+    var one = $(window.frames["mainFrame"].document).find('#lastdigit1').text();
+    var two = $(window.frames["mainFrame"].document).find('#lastdigit2').text();
+    var three = $(window.frames["mainFrame"].document).find('#lastdigit3').text();
+    var four = $(window.frames["mainFrame"].document).find('#lastdigit4').text();
+    var five = $(window.frames["mainFrame"].document).find('#lastdigit5').text();
+    var number = one + '' + two + '' + three + '' + four + '' + five;
     return Number(number);
 };
 
@@ -69,18 +80,28 @@ CityOfDreamsPlatForm.prototype.execInvest = function (investNumberString) {
  * */
 CityOfDreamsPlatForm.prototype.houErZhiXuanInvest = function (investNumberString) {
     //后二
-    $('#Bet > table > tbody > tr:nth-child(2) > td > div:nth-child(1) > div.tabpanelBox > ul > li.bettype-button-list.active > a').click();
+    $(window.frames["mainFrame"].document).find('#Bet > table > tbody > tr:nth-child(2) > td > div:nth-child(1) > div.tabpanelBox > ul > li:nth-child(7) > a')[0].click();
     //分模式
-    $('#Unit2c > label').click();
-    //清空号码
-    $('#betNumber-textarea').trigger('afterkeydown');
+    $(window.frames["mainFrame"].document).find('#Unit2c > label')[0].click();
+    //后二直选
+    $(window.frames["mainFrame"].document).find('#NumberPositionMatchForL2StarSingle')[0].click();
+    //点击清空号码
+    $(window.frames["mainFrame"].document).find('#text-form > td > div > div.col-md-8 > button:nth-child(2)')[0].click();
+    $(window.frames["mainFrame"].document).find('#betNumber-placeholder')[0].click();
+
     //输入号码
-    $('#betNumber-textarea').val(investNumberString);
-    $('#betNumber-textarea').trigger('keyup');
+    $(window.frames["mainFrame"].document).find('#betNumber-textarea')[0].click();//获取输入焦点
+    $(window.frames["mainFrame"].document).find('#betNumber-textarea').trigger('input');
+    $(window.frames["mainFrame"].document).find('#betNumber-textarea').val(23);
+
+
+    $(window.frames["mainFrame"].document).find('#betNumber-textarea').trigger('afterkeydown');
+    $(window.frames["mainFrame"].document).find('#betNumber-textarea').trigger('keyup');
+
     //添加都投注
-    $('#add-ticket').click();
+    $(window.frames["mainFrame"].document).find('#add-ticket')[0].click();
     //确认投注
-    $('#bet-confirm').click();
+    $(window.frames["mainFrame"].document).find('#bet-confirm')[0].click();
 };
 
 /**
