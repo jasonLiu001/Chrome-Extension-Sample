@@ -48,6 +48,15 @@ numberFactory.prototype.getInvestNumberString = function () {
         return restNumber;
     }
 
+    /**
+     *
+     * 获取号码的奇偶属性 0:偶数，1，基数
+     * */
+    function getJiEouType(num){
+        var restNumber = num % 2;
+        return restNumber;
+    }
+
 
     //开奖号码信息
     var prizeFirst = Number(self.lastPrizeNumberString.charAt(0));
@@ -95,16 +104,16 @@ numberFactory.prototype.getInvestNumberString = function () {
         }
         thirdFilterArray.push(item);
     }
-    //当前号码的012路
+    //当前号码的奇偶属性
     var forthFilterArray = [];
-    //上期开奖号码后二的012路 倒杀
-    var shiWei012Type = getNumber012Type(prizeForth);//十位012路类型
-    var geWei012Type = getNumber012Type(prizeFifth);//个位012路类型
+    //上期开奖号码后二奇偶 倒杀
+    var shiWeiJiOuType = getJiEouType(prizeForth);//十位奇偶类型
+    var geWeiJiOuType = getJiEouType(prizeFifth);//个位奇偶类型
     for (var i = 0; i < thirdFilterArray.length; i++) {
         var item = secondFilterArray[i];
-        var first012Type = getNumber012Type(Number(item.charAt(0)));
-        var second012Type = getNumber012Type(Number(item.charAt(1)));
-        if (geWei012Type == first012Type && shiWei012Type == second012Type) {
+        var firstJiEouType = getJiEouType(Number(item.charAt(0)));
+        var secondJiEouType = getJiEouType(Number(item.charAt(1)));
+        if (geWeiJiOuType == firstJiEouType && shiWeiJiOuType == secondJiEouType) {
             continue;
         }
         forthFilterArray.push(item);
