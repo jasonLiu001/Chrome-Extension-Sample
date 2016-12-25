@@ -52,7 +52,7 @@ numberFactory.prototype.getInvestNumberString = function () {
      *
      * 获取号码的奇偶属性 0:偶数，1，基数
      * */
-    function getJiEouType(num){
+    function getJiEouType(num) {
         var restNumber = num % 2;
         return restNumber;
     }
@@ -113,8 +113,36 @@ numberFactory.prototype.getInvestNumberString = function () {
         var item = secondFilterArray[i];
         var firstJiEouType = getJiEouType(Number(item.charAt(0)));
         var secondJiEouType = getJiEouType(Number(item.charAt(1)));
-        if (geWeiJiOuType == firstJiEouType && shiWeiJiOuType == secondJiEouType) {
-            continue;
+        var JiOu = firstJiEouType + '' + secondJiEouType;
+        switch (JiOu) {
+            case '00'://偶偶 杀奇奇
+            {
+                if (shiWeiJiOuType == 1 && geWeiJiOuType == 1) {
+                    continue;
+                }
+            }
+                break;
+            case '11'://奇奇 杀偶偶
+            {
+                if (shiWeiJiOuType == 0 && geWeiJiOuType == 0) {
+                    continue;
+                }
+            }
+                break;
+            case '01'://偶奇 杀奇偶
+            {
+                if (shiWeiJiOuType == 1 && geWeiJiOuType == 0) {
+                    continue;
+                }
+            }
+                break;
+            case '10'://奇偶 杀偶奇
+            {
+                if (shiWeiJiOuType == 0 && geWeiJiOuType == 1) {
+                    continue;
+                }
+            }
+                break;
         }
         forthFilterArray.push(item);
     }
