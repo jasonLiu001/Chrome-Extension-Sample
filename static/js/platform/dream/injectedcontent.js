@@ -1,19 +1,31 @@
 /**
  *
- * 检查是否存在注入的元素节点
+ * @summary 获取投注号码
  * */
-var investNumbersContainer = $(body).find('#investNumbersContainer');
-if (investNumbersContainer.length == 0) {
-    $(body).append('<div id="investNumbersContainer"></div>');
+function getInvestNumberString() {
+    var container = $('#investNumbersContainer');
+    var investNumberString = container.text();
+    if (investNumberString != '') {
+        //清空号码
+        container.text();
+        //投注
+        ViewModel.textForm(investNumberString);
+        $('#bet-confirm').click();
+    } else {
+        return;
+    }
 }
 
 /**
  *
- * @summary 获取投注号码
+ * 检查是否存在注入的元素节点
  * */
-function getInvestNumberString() {
-    var container = $(body).find('#investNumbersContainer');
-    console.log(container.text());
-}
-
-setInterval(getInvestNumberString(), 2000);
+$(function () {
+    var investNumbersContainer = $(document.body).find('#investNumbersContainer');
+    if (investNumbersContainer.length == 0) {
+        $(document.body).append('<div id="investNumbersContainer"></div>');
+    }
+    setInterval(function () {
+        getInvestNumberString();
+    }, 5000);
+});

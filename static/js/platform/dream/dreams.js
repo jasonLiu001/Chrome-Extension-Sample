@@ -91,11 +91,7 @@ CityOfDreamsPlatForm.prototype.houErZhiXuanInvest = function (investNumberString
 
     //输入号码
     $(window.frames["mainFrame"].document).find('#investNumbersContainer').text(23);
-
-    //添加都投注
-    //$(window.frames["mainFrame"].document).find('#add-ticket')[0].click();
-    //确认投注
-    //$(window.frames["mainFrame"].document).find('#bet-confirm')[0].click();
+    //因为该平台使用的是knockout加iframe的形式，所以号码投注的部分使用injectedcontent.js中方法来完成
 };
 
 /**
