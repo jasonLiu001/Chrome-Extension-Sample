@@ -26,7 +26,7 @@
         "static/js/time/opentime.js",
         "static/js/number/numberFactory.js",
         "static/js/platform/jingwei.js",
-        "static/js/platform/dreams.js",
+        "static/js/platform/dream/dreams.js",
         "static/js/appMain.js"
       ]
     }

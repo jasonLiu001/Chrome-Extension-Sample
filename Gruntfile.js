@@ -8,14 +8,8 @@
             dist: {
                 files: {
                     'dist/autoInvest.debug.js': [
-                        "static/libs/moment.min.js",
-                        "static/js/global/globalVar.js",
-                        "static/js/enum/enumItem.js",
-                        "static/js/time/opentime.js",
-                        "static/js/number/numberFactory.js",
-                        "static/js/platform/jingwei.js",
-                        "static/js/platform/dreams.js",
-                        "static/js/appMain.js"
+                        "static/js/platform/dream/iframeresizercontent.js",
+                        "static/js/platform/dream/injectedcontent.js"
                     ]
                 }
             }
