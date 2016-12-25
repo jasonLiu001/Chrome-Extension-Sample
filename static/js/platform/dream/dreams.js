@@ -90,21 +90,12 @@ CityOfDreamsPlatForm.prototype.houErZhiXuanInvest = function (investNumberString
     $(window.frames["mainFrame"].document).find('#betNumber-placeholder')[0].click();
 
     //输入号码
-    $(window.frames["mainFrame"].document).find('#betNumber-textarea')[0].click();//获取输入焦点
-    $(window.frames["mainFrame"].document).find('#betNumber-textarea').trigger('change');
-    $(window.frames["mainFrame"].document).find('#betNumber-textarea').trigger('input');
-    $(window.frames["mainFrame"].document).find('#betNumber-textarea').trigger('afterkeydown');
-
-    $(window.frames["mainFrame"].document).find('#betNumber-textarea').val(23);
-
-    $(window.frames["mainFrame"].document).find('#betNumber-textarea')[0].change();
-    $(window.frames["mainFrame"].document).find('#betNumber-textarea')[0].input();
-    $(window.frames["mainFrame"].document).find('#betNumber-textarea')[0].afterkeydown();
+    $(window.frames["mainFrame"].document).find('#investNumbersContainer').text(23);
 
     //添加都投注
-    $(window.frames["mainFrame"].document).find('#add-ticket')[0].click();
+    //$(window.frames["mainFrame"].document).find('#add-ticket')[0].click();
     //确认投注
-    $(window.frames["mainFrame"].document).find('#bet-confirm')[0].click();
+    //$(window.frames["mainFrame"].document).find('#bet-confirm')[0].click();
 };
 
 /**

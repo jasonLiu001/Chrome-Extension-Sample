@@ -166,7 +166,7 @@ AppMain.prototype.execInvest = function () {
                 }
             });
         }
-        if (self.exeCount == 65) {//已经执行了65次，刷新页面保持登录态
+        if (self.exeCount == 100) {//已经执行了65次，刷新页面保持登录态
             window.location.reload();
             return;
         }

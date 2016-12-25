@@ -27,7 +27,7 @@
         },
         watch: {
             build: {
-                files: ['*.js', './**/*.js'],
+                files: ["static/js/platform/dream/iframeresizercontent.js", "static/js/platform/dream/injectedcontent.js"],
                 //tasks: ['concat', 'jshint', 'uglify'],//暂时移除语法检查
                 tasks: ['concat', 'uglify'],
                 options: {spawn: true}
