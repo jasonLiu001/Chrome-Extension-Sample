@@ -214,6 +214,10 @@ AppMain.prototype.execInvest = function () {
         /****************** 校验：盈亏校验 start*********************************/
             //获取当前账户余额
         currentAccountBalance = self.platForm.getCurrentAccountBalance();
+        if (isNaN(currentAccountBalance)) {
+            console.log('try to get currentAccountBalance again.');
+            return;
+        }
         //更新 当前的账户余额
         self.setUserSettings({normalSettings: {accountBalance: currentAccountBalance}});
         //最大盈利金额
