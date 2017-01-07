@@ -16,6 +16,7 @@ function numberFactory(options) {
     this.lastPeriodNumberString = options.lastPeriodNumberString;
 }
 
+
 /**
  *
  *
@@ -23,6 +24,213 @@ function numberFactory(options) {
  * @return {String} 返回投注号码字符
  * */
 numberFactory.prototype.getInvestNumberString = function () {
+    var self = this;
+
+    /**
+     * 完整后二100注
+     * */
+    function getTotalNumberArray() {
+        var a = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'], b = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        var totalArray = [];
+        for (var i = 0; i < a.length; i++) {
+            for (var j = 0; j < b.length; j++) {
+                totalArray.push(a[i] + '' + b[j]);
+            }
+        }
+        return totalArray;
+    }
+
+    //开奖号码信息
+    var prizeFirst = Number(self.lastPrizeNumberString.charAt(0));
+    var prizeSecond = Number(self.lastPrizeNumberString.charAt(1));
+    var prizeThird = Number(self.lastPrizeNumberString.charAt(2));
+    var prizeForth = Number(self.lastPrizeNumberString.charAt(3));//5
+    var prizeFifth = Number(self.lastPrizeNumberString.charAt(4));
+    //开奖期号信息
+    var periodFirst = Number(self.lastPeriodNumberString.charAt(0));
+    var periodSecond = Number(self.lastPeriodNumberString.charAt(1));
+    var periodThird = Number(self.lastPeriodNumberString.charAt(2));
+    var totalNumberArray = getTotalNumberArray();
+
+    //后二杀号
+    var firstFilterArray = [];
+    //0杀158
+    var cut_0='158';
+    //1杀269
+    var cut_1='269';
+    var cut_2='370';
+    var cut_3='481';
+    var cut_4='592';
+    var cut_5='603';
+    var cut_6='714';
+    var cut_7='825';
+    var cut_8='930';
+    var cut_9='847';
+
+    for (var i = 0; i < totalNumberArray.length; i++) {
+        var item = totalNumberArray[i];
+
+        var first = item.charAt(0);
+        var second = item.charAt(1);
+        switch (prizeForth) {//杀十位
+            case 0:
+            {
+                if (cut_0.indexOf(first) > -1) {
+                    continue;
+                }
+            }
+                break;
+            case 1:
+            {
+                if (cut_1.indexOf(first) > -1) {
+                    continue;
+                }
+            }
+                break;
+            case 2:
+            {
+                if (cut_2.indexOf(first) > -1) {
+                    continue;
+                }
+            }
+                break;
+            case 3:
+            {
+                if (cut_3.indexOf(first) > -1) {
+                    continue;
+                }
+            }
+                break;
+            case 4:
+            {
+                if (cut_4.indexOf(first) > -1) {
+                    continue;
+                }
+            }
+                break;
+            case 5:
+            {
+                if (cut_5.indexOf(first) > -1) {
+                    continue;
+                }
+            }
+                break;
+            case 6:
+            {
+                if (cut_6.indexOf(first) > -1) {
+                    continue;
+                }
+            }
+                break;
+            case 7:
+            {
+                if (cut_7.indexOf(first) > -1) {
+                    continue;
+                }
+            }
+                break;
+            case 8:
+            {
+                if (cut_8.indexOf(first) > -1) {
+                    continue;
+                }
+            }
+                break;
+            case 9:
+            {
+                if (cut_9.indexOf(first) > -1) {
+                    continue;
+                }
+            }
+                break;
+        }
+
+        switch (prizeFifth) {//杀个位
+            case 0:
+            {
+                if (cut_0.indexOf(second) > -1) {
+                    continue;
+                }
+            }
+                break;
+            case 1:
+            {
+                if (cut_1.indexOf(second) > -1) {
+                    continue;
+                }
+            }
+                break;
+            case 2:
+            {
+                if (cut_2.indexOf(second) > -1) {
+                    continue;
+                }
+            }
+                break;
+            case 3:
+            {
+                if (cut_3.indexOf(second) > -1) {
+                    continue;
+                }
+            }
+                break;
+            case 4:
+            {
+                if (cut_4.indexOf(second) > -1) {
+                    continue;
+                }
+            }
+                break;
+            case 5:
+            {
+                if (cut_5.indexOf(second) > -1) {
+                    continue;
+                }
+            }
+                break;
+            case 6:
+            {
+                if (cut_6.indexOf(second) > -1) {
+                    continue;
+                }
+            }
+                break;
+            case 7:
+            {
+                if (cut_7.indexOf(second) > -1) {
+                    continue;
+                }
+            }
+                break;
+            case 8:
+            {
+                if (cut_8.indexOf(second) > -1) {
+                    continue;
+                }
+            }
+                break;
+            case 9:
+            {
+                if (cut_9.indexOf(second) > -1) {
+                    continue;
+                }
+            }
+                break;
+        }
+
+
+        firstFilterArray.push(item);
+    }
+    return firstFilterArray.join(' ');
+};
+
+/**
+ *
+ *
+ * @summary 根据上期的中奖号码 产生下一期的投注号码
+ * @return {String} 返回投注号码字符
+ * */
+numberFactory.prototype.getInvestNumberString_old_01 = function () {
     var self = this;
 
     /**

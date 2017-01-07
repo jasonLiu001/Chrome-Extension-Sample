@@ -224,6 +224,7 @@ AppMain.prototype.execInvest = function () {
         var accountDiff = currentAccountBalance - originalAccountBalance;
         //条件：判定盈利是否已经到达最大，或者亏损到达最大，停止投注
         if ((accountDiff > 0 && accountDiff >= maxWinMoney) || (accountDiff < 0 && Math.abs(accountDiff) >= maxLoseMoney)) {
+            console.log('original account balance:' + originalAccountBalance + ';current account balance:' + currentAccountBalance + ';max lose or win money account:' + accountDiff);
             console.log('Invest auto stop! Reached maxWinMoney or maxLoseMoney');
             return;
         }

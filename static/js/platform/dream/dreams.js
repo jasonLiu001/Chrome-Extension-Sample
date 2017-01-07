@@ -45,6 +45,9 @@ CityOfDreamsPlatForm.prototype.getCurrentAccountBalance = function () {
     //刷新余额
     $(window.document).find('#refreshwallet').click();
     var accountBalance = $(window.document).find('#walletamount').text();
+    if (accountBalance == '' || accountBalance == undefined) {
+        return 0;
+    }
     return parseFloat(accountBalance);
 };
 
@@ -72,6 +75,13 @@ CityOfDreamsPlatForm.prototype.execInvest = function (investNumberString) {
     var self = this;
     //后二直选投注
     self.houErZhiXuanInvest(investNumberString);
+};
+
+/**
+ *
+ * @summary 后一投注
+ * */
+CityOfDreamsPlatForm.prototype.houYiInvest = function () {
 };
 
 /**
