@@ -16,14 +16,14 @@ function houErZhiXuanInvest(investNumberString) {
     //角模式
     $('#Unit2d > label')[0].click();
     //后二直选
-    $('#NumberPositionMatchForL2StarSingle').click();
+    $('#NumberPositionMatchForL2StarSingle')[0].click();
     //点击清空号码
-    $('#text-form > td > div > div.col-md-8 > button:nth-child(2)').click();
-    $('#betNumber-placeholder').click();
+    $('#text-form > td > div > div.col-md-8 > button:nth-child(2)')[0].click();
+    $('#betNumber-placeholder')[0].click();
     //输入号码
     viewModel.textForm(investNumberString);
     //投注
-    $('#bet-confirm').click();
+    $('#bet-confirm')[0].click();
 }
 
 /**

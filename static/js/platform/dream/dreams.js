@@ -43,7 +43,7 @@ CityOfDreamsPlatForm.prototype.getCurrentAccountBalance = function () {
         $(window.document).find('#EnableAmount')[0].click();
     }
     //刷新余额
-    $(window.document).find('#refreshwallet').click();
+    $(window.document).find('#refreshwallet')[0].click();
     var accountBalance = $(window.document).find('#walletamount').text();
     return parseFloat(accountBalance);
 };
