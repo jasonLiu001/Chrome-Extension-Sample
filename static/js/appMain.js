@@ -166,7 +166,7 @@ AppMain.prototype.execInvest = function () {
                 }
             });
         }
-        if (self.exeCount == 100) {//已经执行了100次，刷新页面保持登录态
+        if (self.exeCount == 20) {//1分钟执行1次，已经执行了20次，刷新页面保持登录态
             window.location.reload();
             return;
         }
@@ -257,7 +257,7 @@ AppMain.prototype.execInvest = function () {
         //执行UI自动投注
         self.platForm.execInvest(investNumberString);//执行ui投注
         console.log('Auto invest successfully.Current Time:' + moment().format('HH:mm:ss'));
-    }, 20000);
+    }, 60000);
 };
 
 /**
