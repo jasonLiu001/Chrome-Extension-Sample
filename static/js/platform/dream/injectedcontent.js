@@ -12,7 +12,9 @@ function houErZhiXuanInvest(investNumberString) {
     //后二
     $('#Bet > table > tbody > tr:nth-child(2) > td > div:nth-child(1) > div.tabpanelBox > ul > li:nth-child(7) > a')[0].click();
     //分模式
-    $('#Unit2c > label')[0].click();
+    //$('#Unit2c > label')[0].click();
+    //角模式
+    $('#Unit2d > label')[0].click();
     //后二直选
     $('#NumberPositionMatchForL2StarSingle').click();
     //点击清空号码
