@@ -20,10 +20,55 @@ function numberFactory(options) {
 /**
  *
  *
- * @summary 根据上期的中奖号码 产生下一期的投注号码
+ * @summary 根据上期的中奖号码 产生下一期的投注号码 后三
  * @return {String} 返回投注号码字符
  * */
 numberFactory.prototype.getInvestNumberString = function () {
+    /**
+     * 完整后三完整1000注
+     * */
+    function getTotalNumberArray() {
+        var a = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'], b = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        c = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        var totalArray = [];
+        for (var i = 0; i < a.length; i++) {
+            for (var j = 0; j < b.length; j++) {
+                for (var k = 0; k < c.length; k++) {
+                    totalArray.push(a[i] + '' + b[j] + '' + c[k]);
+                }
+            }
+        }
+        return totalArray;
+    }
+
+
+    //开奖号码信息
+    var prizeFirst = Number(self.lastPrizeNumberString.charAt(0));
+    var prizeSecond = Number(self.lastPrizeNumberString.charAt(1));
+    var prizeThird = Number(self.lastPrizeNumberString.charAt(2));
+    var prizeForth = Number(self.lastPrizeNumberString.charAt(3));//5
+    var prizeFifth = Number(self.lastPrizeNumberString.charAt(4));
+
+    //后三定弹
+    var firstFilterArray = [];
+    for (var i = 0; i < totalNumberArray.length; i++) {
+        var item = totalNumberArray[i];
+
+        if (item.indexOf("2") > -1 || item.indexOf("4") > -1 || item.indexOf("6") > -1) {
+            firstFilterArray.push(item);
+        }
+    }
+
+    return firstFilterArray.join(' ');
+};
+
+/**
+ *
+ *
+ * @summary 根据上期的中奖号码 产生下一期的投注号码 后二
+ * @return {String} 返回投注号码字符
+ * */
+numberFactory.prototype.getInvestNumberString_old_02 = function () {
     var self = this;
 
     /**
@@ -55,17 +100,17 @@ numberFactory.prototype.getInvestNumberString = function () {
     //后二杀号
     var firstFilterArray = [];
     //0杀158
-    var cut_0='158';
+    var cut_0 = '158';
     //1杀269
-    var cut_1='269';
-    var cut_2='370';
-    var cut_3='481';
-    var cut_4='592';
-    var cut_5='603';
-    var cut_6='714';
-    var cut_7='825';
-    var cut_8='930';
-    var cut_9='847';
+    var cut_1 = '269';
+    var cut_2 = '370';
+    var cut_3 = '481';
+    var cut_4 = '592';
+    var cut_5 = '603';
+    var cut_6 = '714';
+    var cut_7 = '825';
+    var cut_8 = '930';
+    var cut_9 = '847';
 
     for (var i = 0; i < totalNumberArray.length; i++) {
         var item = totalNumberArray[i];
@@ -227,7 +272,7 @@ numberFactory.prototype.getInvestNumberString = function () {
 /**
  *
  *
- * @summary 根据上期的中奖号码 产生下一期的投注号码
+ * @summary 根据上期的中奖号码 产生下一期的投注号码  后二
  * @return {String} 返回投注号码字符
  * */
 numberFactory.prototype.getInvestNumberString_old_01 = function () {
@@ -372,7 +417,12 @@ numberFactory.prototype.isNeededPrizeNumber = function () {
     var third = Number(self.lastPrizeNumberString.charAt(2));
     var forth = Number(self.lastPrizeNumberString.charAt(3));//5
     var fifth = Number(self.lastPrizeNumberString.charAt(4));
-    return true;
+    if (third == 1 || forth == 1 || fifth == 1) {//当后三出现1时投注
+        return true;
+    } else {
+        return false;
+    }
+
 };
 
 //Testing requirement.

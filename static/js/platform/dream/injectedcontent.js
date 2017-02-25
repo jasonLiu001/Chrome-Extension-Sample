@@ -28,6 +28,14 @@ function houErZhiXuanInvest(investNumberString) {
 
 /**
  *
+ * @summary 后三直选
+ * */
+function houSanZhiXuanInvest(investNumberString){
+
+}
+
+/**
+ *
  * @summary 获取投注号码
  * */
 function getInvestNumberString() {
@@ -38,7 +46,9 @@ function getInvestNumberString() {
         viewModel.textForm('');
         container.text('');
         //后二投注
-        houErZhiXuanInvest(investNumberString);
+        //houErZhiXuanInvest(investNumberString);
+        //后三直选投注
+        houSanZhiXuanInvest(investNumberString);
     } else {
         return;
     }
