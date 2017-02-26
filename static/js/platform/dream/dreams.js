@@ -71,7 +71,9 @@ CityOfDreamsPlatForm.prototype.getLastPrizeNumber = function () {
 CityOfDreamsPlatForm.prototype.execInvest = function (investNumberString) {
     var self = this;
     //后二直选投注
-    self.houErZhiXuanInvest(investNumberString);
+    //self.houErZhiXuanInvest(investNumberString);
+    //后三直选
+    self.houSanZhiXuanInvest(investNumberString);
 };
 
 /**
@@ -86,6 +88,16 @@ CityOfDreamsPlatForm.prototype.houYiInvest = function () {
  * 后二直选投注
  * */
 CityOfDreamsPlatForm.prototype.houErZhiXuanInvest = function (investNumberString) {
+    //输入号码 配合注入的脚本来完成自动投注，通过下面给页面中特定的节点来赋值
+    $(window.frames["mainFrame"].document).find('#investNumbersContainer').text(investNumberString);
+    //因为该平台使用的是knockout加iframe的形式，所以号码投注的部分使用injectedcontent.js中方法来完成
+};
+
+/**
+ *
+ * 后三直选投注
+ * */
+CityOfDreamsPlatForm.prototype.houSanZhiXuanInvest = function (investNumberString) {
     //输入号码 配合注入的脚本来完成自动投注，通过下面给页面中特定的节点来赋值
     $(window.frames["mainFrame"].document).find('#investNumbersContainer').text(investNumberString);
     //因为该平台使用的是knockout加iframe的形式，所以号码投注的部分使用injectedcontent.js中方法来完成

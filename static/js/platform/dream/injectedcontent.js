@@ -31,7 +31,21 @@ function houErZhiXuanInvest(investNumberString) {
  * @summary 后三直选
  * */
 function houSanZhiXuanInvest(investNumberString){
-
+    //后三
+    $('#Bet > table > tbody > tr:nth-child(2) > td > div:nth-child(1) > div.tabpanelBox > ul > li.bettype-button-list.active > a')[0].click();
+    //分模式
+    //$('#Unit2c > label')[0].click();
+    //厘模式
+    $('#Unit2m > label')[0].click();
+    //后三直选
+    $('#NumberPositionMatchForL3StarSingle')[0].click();
+    //点击清空号码
+    $('#text-form > td > div > div.col-md-8 > button:nth-child(2)')[0].click();
+    $('#betNumber-placeholder')[0].click();
+    //输入号码
+    viewModel.textForm(investNumberString);
+    //投注
+    $('#bet-confirm')[0].click();
 }
 
 /**
