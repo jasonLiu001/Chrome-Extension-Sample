@@ -57,7 +57,7 @@ numberFactory.prototype.getInvestNumberString = function () {
         var item = totalNumberArray[i];
 
         if (prizeThird == 0 || prizeForth == 0 || prizeFifth == 0) {
-            if (item.indexOf("0") > -1 || item.indexOf("4") > -1 || item.indexOf("4") > -1) {
+            if (item.indexOf("0") > -1 || item.indexOf("4") > -1 || item.indexOf("2") > -1) {
                 firstFilterArray.push(item);
             }
         } else if (prizeThird == 1 || prizeForth == 1 || prizeFifth == 1) {
