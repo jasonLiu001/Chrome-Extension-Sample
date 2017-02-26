@@ -22,6 +22,8 @@ function houErZhiXuanInvest(investNumberString) {
     $('#betNumber-placeholder')[0].click();
     //输入号码
     viewModel.textForm(investNumberString);
+    //计算投注金额
+    viewModel.resetSingleSum();
     //投注
     $('#bet-confirm')[0].click();
 }
@@ -44,6 +46,8 @@ function houSanZhiXuanInvest(investNumberString){
     $('#betNumber-placeholder')[0].click();
     //输入号码
     viewModel.textForm(investNumberString);
+    //计算投注金额
+    viewModel.resetSingleSum();
     //投注
     $('#bet-confirm')[0].click();
 }

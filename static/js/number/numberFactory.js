@@ -24,6 +24,8 @@ function numberFactory(options) {
  * @return {String} 返回投注号码字符
  * */
 numberFactory.prototype.getInvestNumberString = function () {
+    var self = this;
+
     /**
      * 完整后三完整1000注
      * */
@@ -48,15 +50,54 @@ numberFactory.prototype.getInvestNumberString = function () {
     var prizeThird = Number(self.lastPrizeNumberString.charAt(2));
     var prizeForth = Number(self.lastPrizeNumberString.charAt(3));//5
     var prizeFifth = Number(self.lastPrizeNumberString.charAt(4));
-
+    var totalNumberArray = getTotalNumberArray();
     //后三定弹
     var firstFilterArray = [];
     for (var i = 0; i < totalNumberArray.length; i++) {
         var item = totalNumberArray[i];
 
-        if (item.indexOf("2") > -1 || item.indexOf("4") > -1 || item.indexOf("6") > -1) {
-            firstFilterArray.push(item);
+        if (prizeThird == 0 || prizeForth == 0 || prizeFifth == 0) {
+            if (item.indexOf("0") > -1 || item.indexOf("4") > -1 || item.indexOf("4") > -1) {
+                firstFilterArray.push(item);
+            }
+        } else if (prizeThird == 1 || prizeForth == 1 || prizeFifth == 1) {
+            if (item.indexOf("2") > -1 || item.indexOf("4") > -1 || item.indexOf("6") > -1) {
+                firstFilterArray.push(item);
+            }
+        } else if (prizeThird == 2 || prizeForth == 2 || prizeFifth == 2) {
+            if (item.indexOf("1") > -1 || item.indexOf("3") > -1 || item.indexOf("7") > -1) {
+                firstFilterArray.push(item);
+            }
+        } else if (prizeThird == 3 || prizeForth == 3 || prizeFifth == 3) {
+            if (item.indexOf("0") > -1 || item.indexOf("3") > -1 || item.indexOf("6") > -1) {
+                firstFilterArray.push(item);
+            }
+        } else if (prizeThird == 4 || prizeForth == 4 || prizeFifth == 4) {
+            if (item.indexOf("2") > -1 || item.indexOf("6") > -1 || item.indexOf("8") > -1) {
+                firstFilterArray.push(item);
+            }
+        } else if (prizeThird == 5 || prizeForth == 5 || prizeFifth == 5) {
+            if (item.indexOf("1") > -1 || item.indexOf("3") > -1 || item.indexOf("7") > -1) {
+                firstFilterArray.push(item);
+            }
+        } else if (prizeThird == 6 || prizeForth == 6 || prizeFifth == 6) {
+            if (item.indexOf("2") > -1 || item.indexOf("4") > -1 || item.indexOf("8") > -1) {
+                firstFilterArray.push(item);
+            }
+        } else if (prizeThird == 7 || prizeForth == 7 || prizeFifth == 7) {
+            if (item.indexOf("3") > -1 || item.indexOf("1") > -1 || item.indexOf("5") > -1) {
+                firstFilterArray.push(item);
+            }
+        } else if (prizeThird == 8 || prizeForth == 8 || prizeFifth == 8) {
+            if (item.indexOf("2") > -1 || item.indexOf("3") > -1 || item.indexOf("6") > -1) {
+                firstFilterArray.push(item);
+            }
+        } else if (prizeThird == 9 || prizeForth == 9 || prizeFifth == 9) {
+            if (item.indexOf("0") > -1 || item.indexOf("3") > -1 || item.indexOf("6") > -1) {
+                firstFilterArray.push(item);
+            }
         }
+
     }
 
     return firstFilterArray.join(' ');
@@ -417,11 +458,7 @@ numberFactory.prototype.isNeededPrizeNumber = function () {
     var third = Number(self.lastPrizeNumberString.charAt(2));
     var forth = Number(self.lastPrizeNumberString.charAt(3));//5
     var fifth = Number(self.lastPrizeNumberString.charAt(4));
-    if (third == 1 || forth == 1 || fifth == 1) {//当后三出现1时投注
-        return true;
-    } else {
-        return false;
-    }
+    return true;
 
 };
 
