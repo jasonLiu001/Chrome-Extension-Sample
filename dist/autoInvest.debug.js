@@ -80,7 +80,7 @@ function getInvestNumberString() {
 $(function () {
     var container = $(document.body).find('#' + investNumbersContainer);
     if (container.length == 0) {
-        $(document.body).append('<div id="' + investNumbersContainer + '"></div>');
+        $(document.body).append('<div style="display:none" id="' + investNumbersContainer + '"></div>');
     }
     setInterval(function () {
         getInvestNumberString();
