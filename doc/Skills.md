@@ -1,3 +1,11 @@
+
+# 如何添加新平台
+1. 在platform文件夹下添加新的平台
+2. 将新的平台文件添加到mainfest.json文件中
+3. 修改appMain.js中`appmain.setPlatform(enumPlatformList.dreams);`，修改成新的平台
+4.
+
+
 # 开发知识点
 ## ContentScript使用
 * 在ContentScript中**不可以**使用下面的api来获取background中的数据

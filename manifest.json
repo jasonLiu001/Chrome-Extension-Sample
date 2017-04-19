@@ -21,7 +21,6 @@
       "js": [
         "static/libs/jquery-2.2.4.min.js",
         "static/libs/moment.min.js",
-        "static/js/util/helper.js",
         "static/js/global/globalVar.js",
         "static/js/enum/enumItem.js",
         "static/js/time/opentime.js",
