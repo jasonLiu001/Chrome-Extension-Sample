@@ -24,6 +24,7 @@
         "static/js/global/globalVar.js",
         "static/js/enum/enumItem.js",
         "static/js/time/opentime.js",
+        "static/js/rules/brokenNumber.js",
         "static/js/number/numberFactory.js",
         "static/js/platform/jingwei.js",
         "static/js/platform/dream/dreams.js",
