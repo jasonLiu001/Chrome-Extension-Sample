@@ -110,7 +110,7 @@ openTime.prototype.getOpenTimeList = function (delaySeconds) {
     }
 
     //第二天10点
-    openTimeList.push(new Date(fourthTime.getTime()) + delaySeconds * 1000);
+    openTimeList.push(new Date(fourthTime.getTime() + delaySeconds * 1000));
 
     return openTimeList;
 };
