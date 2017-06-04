@@ -30,7 +30,7 @@ numberFactory.prototype.getInvestNumberString = function () {
      * 完整后三完整1000注
      * */
     function getTotalNumberArray() {
-        var a = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'], b = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+        var a = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'], b = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
         c = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
         var totalArray = [];
         for (var i = 0; i < a.length; i++) {
